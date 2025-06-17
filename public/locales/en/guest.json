@@ -1,0 +1,14 @@
+{
+  "login": {
+    "signInToAccount": "Sign in to your account",
+    "signIn": "Sign In",
+    "invalidCredentials": "Your email or password is wrong",
+    "emailValidation": {
+      "required": "Use a valid email address",
+      "email": "Use a valid email address"
+    },
+    "passwordValidation": {
+      "matches": "Password must be at least 6 characters long"
+    }
+  }
+}

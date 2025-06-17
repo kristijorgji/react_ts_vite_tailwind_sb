@@ -1,0 +1,5 @@
+{
+  // we extend to sync same path aliases as the ones we use for vite, so we can refer to /@/components.*
+  "extends": "../tsconfig.app.json",
+  "include": ["../src", "./*.ts", "./*.tsx"]
+}

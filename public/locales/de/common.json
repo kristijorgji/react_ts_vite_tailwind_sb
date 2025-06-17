@@ -1,0 +1,35 @@
+{
+  "welcome": "Willkommen {{name}}",
+  "light": "Hell",
+  "dark": "Dunkel",
+  "pages": {
+    "login": {
+      "title": "Anmelden"
+    },
+    "index": {
+      "title": "Startseite"
+    },
+    "analytics": {
+      "title": "Analytik"
+    },
+    "settings": {
+      "title": "Einstellungen"
+    }
+  },
+  "notFoundPage": {
+    "title": "404",
+    "content": "Diese Seite existiert nicht"
+  },
+  "menu": {
+    "home": "Startseite",
+    "analytics": "Analytik",
+    "settings": "Einstellungen"
+  },
+  "errors": {
+    "internalError": "Ein interner Fehler ist aufgetreten. Bitte versuchen Sie es später erneut, indem Sie die Seite aktualisieren. Wenn das Problem weiterhin besteht, kontaktieren Sie uns.",
+    "invalidData": "Ungültige Daten"
+  },
+  "email": "E-Mail-Adresse",
+  "password": "Passwort",
+  "logout": "Abmelden"
+}

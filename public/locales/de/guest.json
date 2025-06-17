@@ -1,0 +1,14 @@
+{
+  "login": {
+    "signInToAccount": "Melden Sie sich bei Ihrem Konto an",
+    "signIn": "Anmelden",
+    "invalidCredentials": "Ihre E-Mail-Adresse oder Ihr Passwort ist falsch",
+    "emailValidation": {
+      "required": "Verwenden Sie eine gültige E-Mail-Adresse",
+      "email": "Verwenden Sie eine gültige E-Mail-Adresse"
+    },
+    "passwordValidation": {
+      "matches": "Das Passwort muss mindestens 6 Zeichen lang sein"
+    }
+  }
+}

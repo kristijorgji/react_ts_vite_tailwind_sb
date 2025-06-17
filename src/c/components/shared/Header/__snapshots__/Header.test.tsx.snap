@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Header > renders header correctly (snapshot) 1`] = `
+<DocumentFragment>
+  <header
+    class="bg-header-bg border-b-header-border fixed top-0 right-0 left-0 z-50 flex h-14 items-center justify-between border-b-1 px-4"
+  >
+    <div
+      class="text-lg font-semibold"
+    />
+    <div
+      class="space-x-1"
+    >
+      <button
+        class="font-semibold"
+        type="button"
+      >
+        🌙 common:dark
+      </button>
+    </div>
+  </header>
+</DocumentFragment>
+`;

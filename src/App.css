@@ -1,0 +1,13 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/*We will show the left sidebar without any margin*/
+#root.logged-in {
+  margin: 0;
+}
+
+#root.logged-in #page-contents {
+  padding-top: 1rem;
+}

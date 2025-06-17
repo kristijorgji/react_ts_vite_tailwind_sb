@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+yarn gen:i18n
+yarn fix
+git add .
+yarn lint
+yarn build
+yarn build-storybook
+yarn test
