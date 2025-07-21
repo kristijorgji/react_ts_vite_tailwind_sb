@@ -3,8 +3,7 @@ import React from 'react';
 import { type Config } from '@/core/config';
 import createLocalizedRoute from '@/core/routing/createLocalizedRoute.tsx';
 import { type RouteId } from '@/core/routing/routes.ts';
-
-import { type Locale } from '../../i18n/locales.ts';
+import { type Locale } from '@/i18n/locales.ts';
 
 const NoLocaleInPathConfig: Config['localization'] = {
     useLocaleInPath: false,

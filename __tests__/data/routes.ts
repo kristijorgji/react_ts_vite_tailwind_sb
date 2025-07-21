@@ -1,6 +1,4 @@
-import { type LocalizedRouteMap } from '@/core/routing/routes.ts';
-
-import { LOCALES } from '../../src/i18n/locales';
+import { DEFAULT_LOCALE, LOCALES, type Locale } from '../../src/i18n/locales';
 
 export const TEST_ROUTES_IDS = {
     INDEX: 'INDEX',
@@ -10,7 +8,15 @@ export const TEST_ROUTES_IDS = {
     DEMO: 'DEMO',
 } as const;
 
-export const TEST_ROUTES: LocalizedRouteMap = {
+export type TestRouteId = (typeof TEST_ROUTES_IDS)[keyof typeof TEST_ROUTES_IDS];
+
+type LocaleTestRouteMap = Record<TestRouteId, { href: string }>;
+
+type LocalizedTestRouteMap = {
+    [DEFAULT_LOCALE]: LocaleTestRouteMap;
+} & Partial<Record<Exclude<Locale, typeof DEFAULT_LOCALE>, Partial<LocaleTestRouteMap>>>;
+
+export const TEST_ROUTES: LocalizedTestRouteMap = {
     [LOCALES.ENGLISH]: {
         [TEST_ROUTES_IDS.INDEX]: {
             href: '/',

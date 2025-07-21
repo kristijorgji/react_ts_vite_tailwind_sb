@@ -1,17 +1,19 @@
 import { addOrUpdateUrlQueryParameters } from '@/c/utils/http.ts';
 import { ROUTES, type RouteId } from '@/core/routing/routes.ts';
+import { DEFAULT_LOCALE, type Locale } from '@/i18n/locales.ts';
 
-import { DEFAULT_LOCALE, type Locale } from '../../i18n/locales.ts';
 import config, { type Config } from '../config.ts';
+
+export type RouteParams = {
+    urlParams?: Record<string, string | number>;
+    query?: Record<string, string | number>;
+    hash?: string;
+} | null;
 
 export function localizeRoutePath(
     locale: Locale,
     routeId: RouteId,
-    params?: {
-        urlParams?: Record<string, string | number>;
-        query?: Record<string, string | number>;
-        hash?: string;
-    } | null,
+    params?: RouteParams,
     { useLocaleInPath, usePrefixForDefaultLocale }: Config['localization'] = config.localization
 ): string {
     let localizedRawPath = ROUTES[DEFAULT_LOCALE][routeId].href;

@@ -4,8 +4,7 @@ import { type NavigateOptions, useNavigate as useReactDomNavigate } from 'react-
 import config from '@/core/config';
 import { localizeRoutePath } from '@/core/routing/localizedRoute.ts';
 import type { RouteId } from '@/core/routing/routes.ts';
-
-import type { Locale } from '../../i18n/locales.ts';
+import type { Locale } from '@/i18n/locales.ts';
 
 export default function useNavigate() {
     const { i18n } = useTranslation();
