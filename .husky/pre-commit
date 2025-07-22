@@ -1,9 +1,20 @@
 #!/usr/bin/env sh
 
+set -e
+
+echo "Running pre-commit checks..."
+
+echo "Generating i18n files..."
 yarn gen:i18n
-yarn fix
-git add .
-yarn lint
+
+echo "Running lint-staged..."
+yarn lint-staged
+
+echo "Running build and build-storybook..."
 yarn build
 yarn build-storybook
+
+echo "Running all the tests to check the coverage..."
 yarn test
+
+echo "Pre-commit checks passed!"

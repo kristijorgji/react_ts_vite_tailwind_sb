@@ -13,6 +13,7 @@
     - [3. Start The Web](#3-start-the-web)
 - [🧑‍💻 Local Development](#local-development)
 - [✅ Testing](#-testing)
+- [🧹 Code quality](#-code-quality--git-hooks)
 - [🌐 Translations](#translations)
     - [1. Guidelines](#guidelines)
     - [2. Best practices](#routing-best-practices)
@@ -116,6 +117,61 @@ To run tests and update snapshots
 
 ```shell
 yarn test -u
+```
+
+---
+
+# 🧹 Code Quality & Git Hooks
+
+To ensure consistent code quality and commit standards, the project uses:
+
+- [Husky](https://typicode.github.io/husky) – to manage Git hooks.
+- [lint-staged](https://github.com/okonet/lint-staged) – to run linters on staged files before committing.
+- [commitlint](https://commitlint.js.org/) – to enforce conventional commit messages.
+
+### Setup
+
+Git hooks are automatically enabled when you install dependencies via:
+
+```bash
+yarn install
+```
+
+### Usage
+
+- On every `git commit`, Husky will run `lint-staged` to:
+    - Lint and format your staged files using ESLint and Prettier.
+- Commit messages are validated using Commitlint to follow conventional commit standards.
+
+You can run these manually as well:
+
+```bash
+yarn lint
+yarn fix
+```
+
+### Conventional Commit Examples
+
+Here are some common commit types used with commitlint:
+
+- `feat`: A new feature
+- `fix`: A bug fix
+- `docs`: Documentation changes
+- `style`: Code style (formatting, missing semi colons, etc)
+- `refactor`: Code changes that neither fix a bug nor add a feature
+- `test`: Adding or fixing tests
+- `chore`: Other changes that don’t modify src or test files
+
+**Examples**:
+
+```bash
+git commit -m "feat: add user authentication flow"
+git commit -m "fix: resolve navigation bug on login page"
+git commit -m "docs: update README with setup instructions"
+git commit -m "style: format files with prettier"
+git commit -m "refactor: simplify form validation logic"
+git commit -m "test: add unit tests for auth reducer"
+git commit -m "chore: update dependencies"
 ```
 
 ---
