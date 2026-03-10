@@ -10,9 +10,9 @@ yarn gen:i18n
 echo "Running lint-staged..."
 yarn lint-staged
 
-echo "Running build and build-storybook..."
+echo "Running build and storybook:build..."
 yarn build
-yarn build-storybook
+yarn storybook:build
 
 echo "Running all the tests to check the coverage..."
 yarn test

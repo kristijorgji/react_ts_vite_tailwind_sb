@@ -8,10 +8,12 @@ import reactX from 'eslint-plugin-react-x'
 import prettierPlugin from 'eslint-plugin-prettier';
 import prettierConfig from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
-
+import translationsEslintConfig from './eslint.translations.config.js'
 
 export default tseslint.config(
-  { ignores: ['dist', 'storybook-static', 'coverage'] },
+  { ignores: ['dist', 'coverage', 'storybook-static'] },
+
+  // main rule set
   {
     extends: [
         js.configs.recommended,
@@ -89,4 +91,6 @@ export default tseslint.config(
         ]
     },
   },
+
+  translationsEslintConfig,
 )

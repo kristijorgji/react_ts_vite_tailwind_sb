@@ -14,6 +14,7 @@ const ThemeToggle: React.FC<Props> = ({ className }) => {
 
     return (
         <button onClick={toggleTheme} className={className} type={'button'}>
+            {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
             {theme === 'dark' ? `☀️ ${t('common:light')}` : `🌙 ${t('common:dark')}`}
         </button>
     );

@@ -11,7 +11,7 @@ const AnalyticsPage: React.FC = () => {
 
     return (
         <PageContents>
-            <div>Analytics</div>
+            <div>{t('common:pages.analytics.title')}</div>
         </PageContents>
     );
 };

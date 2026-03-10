@@ -5,6 +5,7 @@ import logout from '@/c/logout';
 import UsersAuthService from '@/c/services/UsersAuthService';
 import { getSession, setSessionAccessToken } from '@/c/session';
 import { cloneResponse } from '@/c/utils/http';
+import env from '@/env.ts';
 
 import beforeSendAddAuth from '../http/middlewares/beforeSendAddAuth';
 
@@ -44,7 +45,7 @@ const requestWithAccessTokenRenewalIfExpired = async (input: RequestInfo, init?:
     return res;
 };
 
-export const request = fetchFn(fetch, import.meta.env.VITE_API_BASE_PATH as string, {
+export const request = fetchFn(fetch, env.apiBasePath, {
     before: [beforeSendContentJson, beforeSendAddAuth],
 });
 

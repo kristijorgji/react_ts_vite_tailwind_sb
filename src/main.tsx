@@ -1,3 +1,5 @@
+import './wdyr';
+
 import './i18n/i18n.ts';
 import { StrictMode } from 'react';
 
