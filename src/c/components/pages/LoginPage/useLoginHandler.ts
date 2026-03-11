@@ -1,7 +1,7 @@
 import React, { useReducer, useRef, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { ValidationError } from 'yup';
+import { z } from 'zod';
 
 import { request } from '@/c/api/api';
 import paths from '@/c/api/paths';
@@ -51,13 +51,14 @@ export default function useLoginHandler(
         });
 
         try {
-            await schema.validate({
+            schema.parse({
                 email: emailRef.current,
                 password: passwordRef.current,
             });
         } catch (err) {
-            const validationError: ValidationError = err as unknown as ValidationError;
-            setError(validationError.message);
+            if (err instanceof z.ZodError) {
+                setError(err.issues[0]?.message);
+            }
             setInProgress(false);
             return;
         }

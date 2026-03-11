@@ -1,9 +1,8 @@
-import * as yup from 'yup';
-import { ObjectSchema } from 'yup';
+import { z } from 'zod';
 
 import { email, password } from './validations';
 
-type LoginSchemaI81n = {
+type LoginSchemaI18n = {
     emailValidation: {
         required: string;
         email: string;
@@ -13,9 +12,8 @@ type LoginSchemaI81n = {
     };
 };
 
-// eslint-disable-next-line  @typescript-eslint/no-explicit-any
-export default (i18n: LoginSchemaI81n): ObjectSchema<any> =>
-    yup.object().shape({
+export default (i18n: LoginSchemaI18n): z.ZodObject<{ email: z.ZodString; password: z.ZodString }> =>
+    z.object({
         email: email({
             required: i18n.emailValidation.required,
             email: i18n.emailValidation.email,

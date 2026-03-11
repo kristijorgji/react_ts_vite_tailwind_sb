@@ -3,12 +3,16 @@
   "author": "https://github.com/kristijorgji",
   "license": "MIT",
   "private": true,
+  "engines": {
+    "node": ">=22.16.0"
+  },
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "test": "vitest run --coverage",
     "test:ui": "vitest --ui --coverage",
+    "typecheck": "tsc --noEmit",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "fix": "eslint . --fix",
@@ -27,7 +31,6 @@
     "react-dom": "^19.1.0",
     "react-i18next": "^15.5.1",
     "react-router-dom": "^7.6.0",
-    "yup": "^1.6.1",
     "zod": "^4.3.6"
   },
   "devDependencies": {

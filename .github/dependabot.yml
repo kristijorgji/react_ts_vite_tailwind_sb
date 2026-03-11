@@ -1,0 +1,19 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'daily' # Updated to daily for better security
+    open-pull-requests-limit: 10 # Increased slightly to allow for groups
+    # Grouping keeps your PR list clean and merges things together
+    groups:
+      dependencies:
+        patterns:
+          - '*'
+        exclude-patterns:
+          - 'typescript' # Keep TS separate if you want to check it manually
+
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'daily'

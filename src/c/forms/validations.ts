@@ -1,13 +1,15 @@
-import * as yup from 'yup';
+import { z } from 'zod';
 
 type EmailValidationMessages = {
     required?: string;
     email?: string;
 };
-export const email = ({ required, email }: EmailValidationMessages) => yup.string().required(required).email(email);
 
-export const password = (errMsg: string) =>
-    yup
+export const email = ({ required, email }: EmailValidationMessages): z.ZodString =>
+    z.string().nonempty(required).email(email);
+
+export const password = (errMsg: string): z.ZodString =>
+    z
         .string()
-        .required(errMsg)
-        .matches(/(.+){6}/, errMsg);
+        .nonempty(errMsg)
+        .regex(/(.+){6}/, errMsg);

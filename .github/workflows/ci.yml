@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: yarn playwright install --with-deps chromium
+
+      - name: Typecheck
+        run: yarn typecheck
+
+      - name: Test
+        run: |
+          cp .env.dist .env # to avoid vite env verified plugin to fail
+          yarn test
+
+      - name: Storybook build
+        run: yarn storybook:build
+
+      - name: Build
+        # Vite will also need that .env file here to pass validation
+        run: yarn build

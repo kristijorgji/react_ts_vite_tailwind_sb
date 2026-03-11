@@ -1,0 +1,47 @@
+name: Auto-merge Dependabot
+
+on:
+  workflow_run:
+    workflows: ['CI']
+    types: [completed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+    if: >
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.actor.login == 'dependabot[bot]'
+    steps:
+      - name: Fetch Dependabot PR
+        uses: actions/github-script@v7
+        id: get-pr
+        with:
+          script: |
+            const head_sha = context.payload.workflow_run.head_sha;
+            const pulls = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              head_sha: head_sha,
+            });
+            if (pulls.data.length === 0) {
+              core.setFailed('No open PR found for this workflow run');
+              return;
+            }
+            const pr = pulls.data[0];
+            core.setOutput('pr-number', pr.number);
+            core.setOutput('pr-url', pr.html_url);
+            console.log(`Found PR #${pr.number}: ${pr.title}`);
+
+      - name: Merge PR
+        if: steps.get-pr.outputs.pr-number
+        run: gh pr merge --squash "$PR_URL"
+        env:
+          PR_URL: ${{ steps.get-pr.outputs.pr-url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
