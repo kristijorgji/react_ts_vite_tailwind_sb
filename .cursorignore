@@ -1,0 +1,22 @@
+# Build output
+dist/
+storybook-static/
+
+# Generated files (run yarn gen:i18n to regenerate)
+src/i18n/resources.d.ts
+
+# Test artifacts
+coverage/
+__snapshots__/
+*.snap
+
+# Git hooks
+.husky/
+
+# CI/CD
+.github/
+
+# Logs
+*.log
+
+.env
