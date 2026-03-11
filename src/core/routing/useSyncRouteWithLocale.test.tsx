@@ -25,13 +25,13 @@ vi.mock('react-i18next', async () => {
     };
 });
 
-const defaultLocation: Location = {
+const defaultLocation = {
     pathname: '/en/settings',
     search: '?q=test',
     hash: '#section',
     state: {},
     key: '',
-};
+} as Location;
 const mockNavigate = vi.fn();
 let mockLocation = defaultLocation;
 vi.mock('react-router-dom', async () => {

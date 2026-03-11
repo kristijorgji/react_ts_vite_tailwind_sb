@@ -8,10 +8,19 @@ import reactX from 'eslint-plugin-react-x'
 import prettierPlugin from 'eslint-plugin-prettier';
 import prettierConfig from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
+import storybook from 'eslint-plugin-storybook';
 import translationsEslintConfig from './eslint.translations.config.js'
 
 export default tseslint.config(
-  { ignores: ['dist', 'coverage', 'storybook-static'] },
+  { ignores: ['dist', 'coverage', 'storybook-static', '!.storybook'] },
+
+  ...storybook.configs['flat/recommended'],
+
+  {
+    rules: {
+      'storybook/no-renderer-packages': 'off',
+    },
+  },
 
   // main rule set
   {

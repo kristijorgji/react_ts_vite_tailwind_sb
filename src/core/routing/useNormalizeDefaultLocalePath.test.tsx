@@ -1,6 +1,6 @@
-import { waitFor } from '@storybook/test';
 import { render, renderHook } from '@testing-library/react';
 import { type Location, useLocation } from 'react-router-dom';
+import { waitFor } from 'storybook/test';
 import { type Mock, beforeEach, expect, it, vi } from 'vitest';
 
 import type { Config } from '@/core/config';
@@ -32,13 +32,13 @@ vi.mock('react-router-dom', async () => {
     };
 });
 
-const dummyLocation: Location = {
+const dummyLocation = {
     pathname: '/demo',
     search: '?q=test',
     hash: '#section',
     state: {},
     key: '',
-};
+} as Location;
 
 const allRoutes = TEST_ROUTES;
 

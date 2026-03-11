@@ -1,9 +1,19 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { ThemeProvider } from '@/c/contexts/Theme/ThemeProvider';
 
 import { Header } from './Header';
+
+vi.mock('react-i18next', () => ({
+    useTranslation: () => ({
+        t: (key: string) => key,
+        i18n: {
+            language: 'en',
+            changeLanguage: vi.fn(),
+        },
+    }),
+}));
 
 describe('Header', () => {
     it('renders header correctly (snapshot)', () => {
@@ -15,24 +25,19 @@ describe('Header', () => {
         expect(asFragment()).toMatchSnapshot();
     });
 
-    it('renders header and toggles theme on button click', () => {
+    it('renders locale selector and theme toggle', () => {
         render(
             <ThemeProvider>
                 <Header />
             </ThemeProvider>
         );
 
-        // Find the theme toggle button
-        const button = screen.getByRole('button');
-        expect(button).toBeInTheDocument();
+        expect(screen.getByLabelText('common:selectLanguage')).toBeInTheDocument();
 
-        // Check initial text
-        expect(button.textContent?.toLowerCase()).toMatch(/dark|light/);
+        const themeButton = screen.getByRole('button', { name: /dark|light/i });
+        expect(themeButton).toBeInTheDocument();
 
-        // Simulate click
-        fireEvent.click(button);
-
-        // After clicking, text should toggle
-        expect(button.textContent?.toLowerCase()).toMatch(/light|dark/); // could be either depending on initial state
+        fireEvent.click(themeButton);
+        expect(themeButton.textContent?.toLowerCase()).toMatch(/light|dark/);
     });
 });

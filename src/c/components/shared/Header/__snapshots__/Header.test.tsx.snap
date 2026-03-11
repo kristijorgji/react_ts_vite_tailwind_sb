@@ -9,8 +9,47 @@ exports[`Header > renders header correctly (snapshot) 1`] = `
       class="text-lg font-semibold"
     />
     <div
-      class="space-x-1"
+      class="flex items-center gap-2"
     >
+      <div
+        class="relative"
+      >
+        <button
+          aria-expanded="false"
+          aria-haspopup="true"
+          aria-label="common:selectLanguage"
+          class="flex items-center gap-1 rounded-md px-2 py-1 text-sm font-semibold transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+          type="button"
+        >
+          <span
+            class="text-base"
+          >
+            🇺🇸
+          </span>
+          <span
+            class="hidden uppercase sm:inline"
+          >
+            en
+          </span>
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-chevron-down transition-transform"
+            fill="none"
+            height="14"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="14"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m6 9 6 6 6-6"
+            />
+          </svg>
+        </button>
+      </div>
       <button
         class="font-semibold"
         type="button"

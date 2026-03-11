@@ -6,10 +6,17 @@ import LoginPage from './LoginPage';
 vi.mock('react-i18next', () => ({
     useTranslation: () => ({
         t: (key: string) => key,
+        i18n: { language: 'en' },
     }),
 }));
 
-// Mock useLoginHandler
+vi.mock('@/c/hooks/auth/useDemoLogin', () => ({
+    useDemoLogin: () => ({
+        isDemoAvailable: true,
+        demoLogin: vi.fn(),
+    }),
+}));
+
 const mockSetEmail = vi.fn();
 const mockSetPassword = vi.fn();
 const mockOnLoginSubmit = vi.fn((e) => e.preventDefault());
@@ -62,5 +69,10 @@ describe('LoginPage', () => {
 
         render(<LoginPageWithError />);
         expect(screen.getByText('Invalid credentials')).toBeInTheDocument();
+    });
+
+    it('renders demo login button when available', () => {
+        render(<LoginPage />);
+        expect(screen.getByText('guest:login.demoAccount')).toBeInTheDocument();
     });
 });

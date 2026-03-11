@@ -27,17 +27,9 @@ export default {
         'formatjs/no-literal-string-in-jsx': [
             'error',
             {
-                ignoreAttribute: [
-                    'id',
-                    'data-testid',
-                    'key',
-                    'className',
-                    'style',
-                ],
                 props: {
                     include: [
-                        // check the props below on of any "*" component.
-                        ['*', '(placeholder|label|title|alt|aria-{label,description}'],
+                        ['*', '(placeholder|label|title|alt|aria-{label,description})'],
                     ],
                 },
             }

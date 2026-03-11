@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
 import useLoginHandler from '@/c/components/pages/LoginPage/useLoginHandler.ts';
+import { useDemoLogin } from '@/c/hooks/auth/useDemoLogin';
 import usePageTitle from '@/c/hooks/usePageTitle.ts';
 
 const LoginPage: React.FC = () => {
@@ -23,6 +24,13 @@ const LoginPage: React.FC = () => {
             matches: t('guest:login.passwordValidation.matches'),
         },
     });
+
+    const { isDemoAvailable, demoLogin } = useDemoLogin();
+
+    const handleDemoLogin = useCallback(() => {
+        setInProgress(true);
+        demoLogin();
+    }, [demoLogin]);
 
     return (
         <div className="bg-background flex min-h-screen items-center justify-center px-4">
@@ -70,6 +78,19 @@ const LoginPage: React.FC = () => {
                         {t('guest:login.signIn')}
                     </button>
                 </form>
+
+                {isDemoAvailable && (
+                    <div className="mt-4 border-t border-gray-200 pt-4 dark:border-gray-700">
+                        <button
+                            type="button"
+                            onClick={handleDemoLogin}
+                            disabled={inProgress}
+                            className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:ring focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+                        >
+                            {t('guest:login.demoAccount')}
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     );

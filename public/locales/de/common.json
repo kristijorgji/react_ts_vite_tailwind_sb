@@ -29,6 +29,7 @@
     "internalError": "Ein interner Fehler ist aufgetreten. Bitte versuchen Sie es später erneut, indem Sie die Seite aktualisieren. Wenn das Problem weiterhin besteht, kontaktieren Sie uns.",
     "invalidData": "Ungültige Daten"
   },
+  "selectLanguage": "Sprache auswählen",
   "email": "E-Mail-Adresse",
   "password": "Passwort",
   "logout": "Abmelden"

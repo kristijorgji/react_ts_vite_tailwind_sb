@@ -35,7 +35,6 @@
     "src",
     "./__tests__/setup.ts",
     ".storybook/*.ts",
-    "vitest.shims.d.ts",
-    "vitest.workspace.ts"
+    "vitest.shims.d.ts"
   ]
 }

@@ -2,6 +2,7 @@
   "login": {
     "signInToAccount": "Melden Sie sich bei Ihrem Konto an",
     "signIn": "Anmelden",
+    "demoAccount": "Mit Demo-Konto anmelden",
     "invalidCredentials": "Ihre E-Mail-Adresse oder Ihr Passwort ist falsch",
     "emailValidation": {
       "required": "Verwenden Sie eine gültige E-Mail-Adresse",

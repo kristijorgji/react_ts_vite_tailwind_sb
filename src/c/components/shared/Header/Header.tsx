@@ -1,3 +1,4 @@
+import LocaleSelector from '@/c/components/shared/LocaleSelector/LocaleSelector.tsx';
 import ThemeToggle from '@/c/components/shared/ThemeToggle/ThemeToggle.tsx';
 
 export const Header = () => {
@@ -11,7 +12,8 @@ export const Header = () => {
             <div className="text-lg font-semibold"></div>
 
             {/* Right */}
-            <div className={'space-x-1'}>
+            <div className="flex items-center gap-2">
+                <LocaleSelector />
                 <ThemeToggle className={'font-semibold'} />
             </div>
         </header>

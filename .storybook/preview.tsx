@@ -32,7 +32,6 @@ export const globalTypes: Preview['globalTypes'] = {
                 { value: 'light', icon: 'circlehollow', title: 'Light' },
                 { value: 'dark', icon: 'circle', title: 'Dark' },
             ],
-            showName: true,
         },
     },
     locale: {
@@ -50,7 +49,6 @@ export const globalTypes: Preview['globalTypes'] = {
                 title: e.text,
                 right: LOCALE_FLAGS[e.value],
             })),
-            showName: true,
         },
     },
 };

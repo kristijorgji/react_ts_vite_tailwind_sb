@@ -4,6 +4,7 @@ import api from '@/c/api/api';
 import paths from '@/c/api/paths';
 import { UserContext } from '@/c/contexts/User/UserContext.tsx';
 import { LoadableData } from '@/c/data/types/LoadableData';
+import { DEMO_USER, isDemoMode } from '@/c/demo';
 import useDidMountEffect from '@/c/hooks/core/useDidMountEffect.ts';
 import { isApiLoggedIn } from '@/c/session';
 import type { MeUser } from '@/c/types/api.ts';
@@ -13,6 +14,11 @@ const UserContextProvider: React.FC<PropsWithChildren> = (p) => {
     const contextValue = useMemo(() => ({ data, setData }), [data]);
 
     useDidMountEffect(() => {
+        if (isDemoMode()) {
+            setData(LoadableData.value(DEMO_USER));
+            return;
+        }
+
         if (isApiLoggedIn()) {
             api.getJson<MeUser>(paths.me)
                 .then((value) => setData(LoadableData.value(value)))

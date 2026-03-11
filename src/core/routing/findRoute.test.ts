@@ -7,21 +7,21 @@ import type { LocalizedRouteMap } from '@/core/routing/routes.ts';
 import { TEST_ROUTES } from '../../../__tests__/data/routes.ts';
 
 describe('findRoute', () => {
-    const prefixedEnLocation: Location = {
+    const prefixedEnLocation = {
         pathname: '/en/settings',
         search: '?q=test',
         hash: '#section',
         state: {},
         key: '',
-    };
+    } as Location;
 
-    const nonPrefixedEnLocation: Location = {
+    const nonPrefixedEnLocation = {
         pathname: '/settings',
         search: '?q=test',
         hash: '#section',
         state: {},
         key: '',
-    };
+    } as Location;
 
     const expectedFoundSettingsRoute: FindRouteResult = {
         params: {

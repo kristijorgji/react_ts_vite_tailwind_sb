@@ -7,10 +7,14 @@ if (!_env.success) {
     throw new Error('Invalid environment variables');
 }
 
-export default {
+const env = {
     appEnv: _env.data.VITE_APP_ENV,
     log: {
         level: _env.data.VITE_APP_LOG_LEVEL,
     },
     apiBasePath: _env.data.VITE_API_BASE_PATH,
 };
+
+export const isDev = env.appEnv === 'local' || env.appEnv === 'development';
+
+export default env;

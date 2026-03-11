@@ -36,7 +36,7 @@ const MOCK_ROUTER_CONFIG: Config['localization'] = {
     useLocaleInPath: true,
     usePrefixForDefaultLocale: false,
 };
-const MOCK_DEFAULT_LOCATION: Location = { pathname: '/settings', search: '', hash: '', state: null, key: 'default' };
+const MOCK_DEFAULT_LOCATION = { pathname: '/settings', search: '', hash: '', state: null, key: 'default' } as Location;
 const MOCK_DEFAULT_LOCALE = DEFAULT_LOCALE;
 const MOCK_ROUTES = TEST_ROUTES;
 

@@ -29,6 +29,7 @@
     "internalError": "An internal error happened. Please try again later by refreshing the page, and if the problem still persist contact us.",
     "invalidData": "Invalid data"
   },
+  "selectLanguage": "Select language",
   "email": "Email address",
   "password": "Password",
   "logout": "Logout"
