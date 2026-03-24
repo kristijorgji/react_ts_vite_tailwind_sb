@@ -23,13 +23,13 @@
     "storybook:build": "storybook build"
   },
   "dependencies": {
-    "i18next": "^25.10.5",
+    "i18next": "^25.10.9",
     "i18next-browser-languagedetector": "^8.2.1",
     "i18next-http-backend": "^3.0.2",
     "lucide-react": "^1.0.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "react-i18next": "^16.6.2",
+    "react-i18next": "^16.6.5",
     "react-router-dom": "^7.13.2",
     "zod": "^4.3.6"
   },
@@ -79,7 +79,7 @@
     "storybook": "^10.3.3",
     "tailwindcss": "^4.2.1",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.57.1",
+    "typescript-eslint": "^8.57.2",
     "vite": "^8.0.2",
     "vite-plugin-react-remove-attributes": "^1.0.3",
     "vite-tsconfig-paths": "^6.1.1",
