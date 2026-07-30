@@ -2,7 +2,7 @@
 name: component-extraction
 description: >
     Split oversized React components and hooks flagged by ESLint extraction rules.
-    Use when react/no-multi-comp, max-lines-per-function, or max-lines warnings
+    Use when no-multi-comp/no-multi-comp, max-lines-per-function, or max-lines warnings
     appear, when splitting a screen, or when extracting logic into a hook.
 ---
 
@@ -14,10 +14,10 @@ Component file layout lives in [frontend-component-guidelines](../frontend-compo
 
 ## Detection thresholds
 
-| Target                                         | Rules                                                        | Limits                      |
-| ---------------------------------------------- | ------------------------------------------------------------ | --------------------------- |
-| `**/*.tsx` (excl. tests, stories)              | `react/no-multi-comp`, `max-lines-per-function`, `max-lines` | 70 lines/fn, 300 lines/file |
-| `**/use*.ts`, `**/hooks/**/*.ts` (excl. tests) | `max-lines-per-function`                                     | 120 lines/fn                |
+| Target                                         | Rules                                                                | Limits                      |
+| ---------------------------------------------- | -------------------------------------------------------------------- | --------------------------- |
+| `**/*.tsx` (excl. tests, stories)              | `no-multi-comp/no-multi-comp`, `max-lines-per-function`, `max-lines` | 70 lines/fn, 300 lines/file |
+| `**/use*.ts`, `**/hooks/**/*.ts` (excl. tests) | `max-lines-per-function`                                             | 120 lines/fn                |
 
 All rules are **warn-only** — they signal extraction candidates, not blockers.
 

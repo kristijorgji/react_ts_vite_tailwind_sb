@@ -1,12 +1,11 @@
 import js from '@eslint/js';
-import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import reactDom from 'eslint-plugin-react-dom';
 import reactX from 'eslint-plugin-react-x';
 import prettierPlugin from 'eslint-plugin-prettier';
 import prettierConfig from 'eslint-config-prettier';
-import importPlugin from 'eslint-plugin-import';
+import importPlugin from 'eslint-plugin-import-x';
 import storybook from 'eslint-plugin-storybook';
 import sonarjs from 'eslint-plugin-sonarjs';
 import unusedImports from 'eslint-plugin-unused-imports';
@@ -48,21 +47,15 @@ export default tseslint.config(
         },
         plugins: {
             prettier: prettierPlugin,
-            react,
             'react-x': reactX,
             'react-dom': reactDom,
             'react-hooks': reactHooks,
             'react-refresh': reactRefresh,
-            import: importPlugin,
+            'import-x': importPlugin,
             sonarjs,
             'unused-imports': unusedImports,
             perfectionist,
             ...weakTypeofConfig.plugins,
-        },
-        settings: {
-            react: {
-                version: 'detect',
-            },
         },
         rules: {
             ...reactHooks.configs.recommended.rules,
@@ -73,9 +66,9 @@ export default tseslint.config(
             ...reactX.configs['recommended-typescript'].rules,
             ...reactDom.configs.recommended.rules,
             'prettier/prettier': 'error',
-            'import/first': 'error',
-            'import/no-duplicates': 'error',
-            'import/order': [
+            'import-x/first': 'error',
+            'import-x/no-duplicates': 'error',
+            'import-x/order': [
                 'error',
                 {
                     groups: ['builtin', 'external', 'internal', ['parent', 'sibling']],
@@ -257,17 +250,15 @@ export default tseslint.config(
         },
     },
 
-    // Component / hook size (warn-only extraction signals)
+    // Tests/mocks: nested factories and local harness components are intentional
     {
-        plugins: {
-            react,
-        },
-        settings: {
-            react: {
-                version: 'detect',
-            },
+        files: ['**/*.test.ts', '**/*.test.tsx', 'test/**'],
+        rules: {
+            'react-x/component-hook-factories': 'off',
         },
     },
+
+    // Component / hook size (warn-only extraction signals)
     ...componentExtractionDetectionRules,
 
     translationsEslintConfig,

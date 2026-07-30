@@ -41,13 +41,7 @@ export type FormPathParams = {
 export function formPath(route: FormPathParams): string {
     let r = route.pathname;
 
-    const pattern = /:([^:/]+)/g;
-    const urlTokens: string[] = [];
-
-    let match = null;
-    while ((match = pattern.exec(r))) {
-        urlTokens.push(match[1]);
-    }
+    const urlTokens = [...r.matchAll(/:([^:/]+)/g)].flatMap((match) => (match[1] !== undefined ? [match[1]] : []));
 
     if (route.urlParams) {
         const urlParams = JSON.parse(JSON.stringify(route.urlParams)) as Record<string, string>;

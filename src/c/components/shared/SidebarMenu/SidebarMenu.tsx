@@ -63,6 +63,21 @@ export const SidebarMenu: React.FC = () => {
 
     const expanded = viewManager.lsidebar.expanded;
 
+    const { topMenuItems, bottomMenuItems } = useMemo(() => {
+        const top: MenuItems = {};
+        const bottom: MenuItems = {};
+
+        for (const [key, value] of Object.entries(menuItems)) {
+            if (value.group === 'top') {
+                top[key] = value;
+            } else {
+                bottom[key] = value;
+            }
+        }
+
+        return { topMenuItems: top, bottomMenuItems: bottom };
+    }, [menuItems]);
+
     return (
         <>
             {/* Desktop Sidebar */}
@@ -86,39 +101,22 @@ export const SidebarMenu: React.FC = () => {
 
                 {/* Nav Items */}
                 <nav className={clsx('flex flex-1 flex-col justify-between', expanded ? '' : 'items-center')}>
-                    {(() => {
-                        const topMenuItems: MenuItems = {};
-                        const bottomMenuItems: MenuItems = {};
-
-                        for (const [key, value] of Object.entries(menuItems)) {
-                            if (value.group === 'top') {
-                                topMenuItems[key] = value;
-                            } else {
-                                bottomMenuItems[key] = value;
-                            }
-                        }
-
-                        return (
-                            <>
-                                <div>
-                                    {renderDesktopMenuItems({
-                                        locale: i18n.language as Locale,
-                                        menuItems: topMenuItems,
-                                        expanded: expanded,
-                                        pathname: pathname,
-                                    })}
-                                </div>
-                                <div className={'mb-2'}>
-                                    {renderDesktopMenuItems({
-                                        locale: i18n.language as Locale,
-                                        menuItems: bottomMenuItems,
-                                        expanded: expanded,
-                                        pathname: pathname,
-                                    })}
-                                </div>
-                            </>
-                        );
-                    })()}
+                    <div>
+                        {renderDesktopMenuItems({
+                            locale: i18n.language as Locale,
+                            menuItems: topMenuItems,
+                            expanded: expanded,
+                            pathname: pathname,
+                        })}
+                    </div>
+                    <div className={'mb-2'}>
+                        {renderDesktopMenuItems({
+                            locale: i18n.language as Locale,
+                            menuItems: bottomMenuItems,
+                            expanded: expanded,
+                            pathname: pathname,
+                        })}
+                    </div>
                 </nav>
             </aside>
 

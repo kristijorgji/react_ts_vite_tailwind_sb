@@ -1,5 +1,5 @@
 import type React from 'react';
-import { useReducer, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
@@ -42,9 +42,13 @@ export default function useLoginHandler(
     prefilledEmail?: string
 ): LoginHandlerResult {
     const { i18n: i18nFn } = useTranslation();
-    const [, forceUpdate] = useReducer((x) => x + 1, 0);
     const emailRef = useRef<string>(prefilledEmail || '');
     const passwordRef = useRef<string>('');
+    // Snapshot only updates when setEmail(..., true) asks for a re-render (uncontrolled inputs).
+    const [snapshot, setSnapshot] = useState({
+        email: prefilledEmail || '',
+        password: '',
+    });
     const [error, setError] = useState<string>();
 
     async function onLoginSubmit(event: React.FormEvent): Promise<void> {
@@ -106,7 +110,7 @@ export default function useLoginHandler(
     const setEmail = (value: string, rerender = false): void => {
         emailRef.current = value;
         if (rerender) {
-            forceUpdate();
+            setSnapshot({ email: emailRef.current, password: passwordRef.current });
         }
     };
 
@@ -118,8 +122,8 @@ export default function useLoginHandler(
         onLoginSubmit,
         setEmail,
         setPassword,
-        email: emailRef.current,
-        password: passwordRef.current,
+        email: snapshot.email,
+        password: snapshot.password,
         error: error,
     };
 }
