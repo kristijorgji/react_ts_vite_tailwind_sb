@@ -1,9 +1,9 @@
 ---
 name: typescript-best-practices
 description: >
-  Use when writing, reviewing, or refactoring TypeScript code in this project.
-  Covers type safety, code reuse, modularity, import conventions, and formatting.
-  Do not use for non-TypeScript files or for component-level UI guidelines (see frontend-component-guidelines instead).
+    Use when writing, reviewing, or refactoring TypeScript code in this project.
+    Covers type safety, code reuse, modularity, import conventions, and formatting.
+    Do not use for non-TypeScript files or for component-level UI guidelines (see frontend-component-guidelines instead).
 ---
 
 # TypeScript Best Practices
@@ -81,6 +81,38 @@ export function useAuth(): { isLoggedIn: boolean; logout: () => void } { ... }
 export function useAuth() { ... }
 ```
 
+## Object / array locals and `satisfies`
+
+Const-bound object, array, and JSX values must use an **explicit type annotation
+on the binding** (enforced by ESLint `no-restricted-syntax`):
+
+```typescript
+// Good
+const location: Location = { pathname: '/x', search: '', hash: '', state: null, key: 'k' };
+
+// Bad
+const location = { pathname: '/x', ... };
+const location = { ... } satisfies Location; // reserve satisfies for inline args
+```
+
+In **tests and stories**, use `satisfies SomeNamedType` on **inline** mock /
+expect / `JSON.stringify` bodies — not `as T` on object literals, and not weak
+`satisfies any|unknown|object` or `satisfies { inline: literal }`:
+
+```typescript
+// Good
+mockReturnValue({ id: '1' } satisfies Session);
+expect(result).toEqual({ routeId: 'LOGIN', params: null } satisfies FindRouteResult);
+
+// Bad
+mockReturnValue({ id: '1' } as Session);
+mockReturnValue({ id: '1' });
+expect(x).toEqual({ a: 1 } satisfies { a: number });
+```
+
+Prefer existing domain types, `ReturnType` / `Awaited<ReturnType>`, or a local
+`type` alias when needed. Do not use pure re-aliases (`type A = B`).
+
 ## Use `type` Imports
 
 This project enforces `verbatimModuleSyntax` in `tsconfig.json`. Always use
@@ -95,11 +127,11 @@ import type { MeUser } from '@/c/types/api';
 
 Use the configured path aliases instead of deep relative imports:
 
-| Alias | Target |
-|-------|--------|
+| Alias      | Target       |
+| ---------- | ------------ |
 | `@/core/*` | `src/core/*` |
-| `@/c/*` | `src/c/*` |
-| `@/*` | `src/*` |
+| `@/c/*`    | `src/c/*`    |
+| `@/*`      | `src/*`      |
 
 ```typescript
 // Good
@@ -118,4 +150,4 @@ Follow the project's ESLint and Prettier configuration:
 - **Import ordering:** builtin → external → internal → parent/sibling, each
   group alphabetized with blank lines between groups.
 - **No unused variables or parameters** (prefix intentionally unused names with `_`).
-- Run `yarn lint` and `yarn fix` to validate and auto-fix before committing.
+- Run `pnpm lint` and `pnpm fix` to validate and auto-fix before committing.

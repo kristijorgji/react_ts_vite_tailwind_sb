@@ -23,7 +23,7 @@ describe('createAllReactRoutes', () => {
         SETTINGS: <div>Settings</div>,
     };
 
-    const NoLocaleInPathConfig = {
+    const NoLocaleInPathConfig: Config['localization'] = {
         useLocaleInPath: false,
         usePrefixForDefaultLocale: false,
     };

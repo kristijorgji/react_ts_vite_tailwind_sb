@@ -13,7 +13,7 @@ export function fetchFn(
     return async (input: RequestInfo, init?: RequestInit) => {
         if (middlewares && middlewares.before) {
             for (const beforeMiddleware of middlewares.before) {
-                init = beforeMiddleware(init as RequestInit);
+                init = beforeMiddleware(init ?? {});
             }
         }
 

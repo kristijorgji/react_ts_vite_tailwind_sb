@@ -2,15 +2,15 @@ import React from 'react';
 
 const ChevronDown: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     <svg
-        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
         fill="none"
-        viewBox="0 0 24 24"
         stroke="var(--color-text)"
         strokeWidth={2}
-        aria-hidden="true"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
         {...props}
     >
-        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+        <path d="M19 9l-7 7-7-7" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
 export default ChevronDown;

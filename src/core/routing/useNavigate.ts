@@ -6,7 +6,17 @@ import { localizeRoutePath } from '@/core/routing/localizedRoute.ts';
 import type { RouteId } from '@/core/routing/routes.ts';
 import type { Locale } from '@/i18n/locales.ts';
 
-export default function useNavigate() {
+type AppNavigate = (
+    routeId: RouteId,
+    params?: {
+        urlParams?: Record<string, string | number>;
+        query?: Record<string, string | number>;
+        hash?: string;
+    },
+    options?: NavigateOptions
+) => void | Promise<void>;
+
+export default function useNavigate(): AppNavigate {
     const { i18n } = useTranslation();
     const navigate = useReactDomNavigate();
 
@@ -18,7 +28,7 @@ export default function useNavigate() {
             hash?: string;
         },
         options?: NavigateOptions
-    ) => {
+    ): void | Promise<void> => {
         return navigate(localizeRoutePath(i18n.language as Locale, routeId, params, config.localization), options);
     };
 }

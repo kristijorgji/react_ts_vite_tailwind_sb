@@ -1,0 +1,13 @@
+{
+    "threshold": 100,
+    "gitignore": true,
+    "reporters": ["console", "markdown", "json"],
+    "format": ["typescript", "javascript"],
+    "pattern": "**/*.{test,stories}.{ts,tsx}",
+    "path": ["src"],
+    "ignore": ["**/node_modules/**", "**/dist/**", "**/coverage/**"],
+    "output": "./reports/jscpd-tests",
+    "minLines": 8,
+    "minTokens": 35,
+    "absolute": true
+}

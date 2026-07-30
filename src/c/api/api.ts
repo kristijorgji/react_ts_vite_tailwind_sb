@@ -26,7 +26,11 @@ const requestWithAccessTokenRenewalIfExpired = async (input: RequestInfo, init?:
 
             if (jbody!['code'] === 'token_expired') {
                 try {
-                    const data = await UsersAuthService.getInstance().renewAccessToken(getSession()!.refreshToken);
+                    const session = getSession();
+                    if (!session) {
+                        throw new Error('No session available for token renewal');
+                    }
+                    const data = await UsersAuthService.getInstance().renewAccessToken(session.refreshToken);
                     setSessionAccessToken(data);
 
                     return request(input, init);

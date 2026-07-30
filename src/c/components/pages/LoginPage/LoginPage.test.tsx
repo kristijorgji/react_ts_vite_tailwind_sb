@@ -3,12 +3,10 @@ import { beforeEach, describe, it, vi } from 'vitest';
 
 import LoginPage from './LoginPage';
 
-vi.mock('react-i18next', () => ({
-    useTranslation: () => ({
-        t: (key: string) => key,
-        i18n: { language: 'en' },
-    }),
-}));
+vi.mock('react-i18next', async () => {
+    const { createReactI18nextMockModule } = await import('@test/mocks/react-i18next');
+    return createReactI18nextMockModule({ language: 'en' });
+});
 
 vi.mock('@/c/hooks/auth/useDemoLogin', () => ({
     useDemoLogin: () => ({
@@ -37,9 +35,9 @@ describe('LoginPage', () => {
         }));
         render(<LoginPage />);
 
-        const emailInput = screen.getByLabelText('common:email');
-        const passwordInput = screen.getByLabelText('common:password');
-        const submitButton = screen.getByRole('button', { name: 'guest:login.signIn' });
+        const emailInput = screen.getByTestId('login-email');
+        const passwordInput = screen.getByTestId('login-password');
+        const submitButton = screen.getByTestId('login-submit');
 
         expect(emailInput).toBeInTheDocument();
         expect(passwordInput).toBeInTheDocument();
@@ -68,11 +66,11 @@ describe('LoginPage', () => {
         const { default: LoginPageWithError } = await import('./LoginPage');
 
         render(<LoginPageWithError />);
-        expect(screen.getByText('Invalid credentials')).toBeInTheDocument();
+        expect(screen.getByTestId('login-error')).toHaveTextContent('Invalid credentials');
     });
 
     it('renders demo login button when available', () => {
         render(<LoginPage />);
-        expect(screen.getByText('guest:login.demoAccount')).toBeInTheDocument();
+        expect(screen.getByTestId('login-demo')).toBeInTheDocument();
     });
 });

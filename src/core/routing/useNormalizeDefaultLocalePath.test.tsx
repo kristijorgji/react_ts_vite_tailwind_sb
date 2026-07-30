@@ -6,39 +6,36 @@ import { type Mock, beforeEach, expect, it, vi } from 'vitest';
 import type { Config } from '@/core/config';
 import { type LocaleRouteMap } from '@/core/routing/routes.ts';
 
+import { TEST_ROUTES } from '@test/data/routes';
+
 import useNormalizeDefaultLocalePath from './useNormalizeDefaultLocalePath';
-import { TEST_ROUTES } from '../../../__tests__/data/routes.ts';
 import { DEFAULT_LOCALE, type Locale } from '../../i18n/locales.ts';
 
 let mockLanguage: Locale = DEFAULT_LOCALE;
+const { mockNavigateFn } = vi.hoisted(() => ({
+    mockNavigateFn: vi.fn(),
+}));
+
 vi.mock('react-i18next', async () => {
-    const actual = await vi.importActual<typeof import('react-i18next')>('react-i18next');
-    return {
-        ...actual,
-        useTranslation: () => ({
-            t: (key: string) => key,
-            i18n: { language: mockLanguage },
-        }),
-    };
+    const { createReactI18nextPartialMock } = await import('@test/mocks/react-i18next');
+    return createReactI18nextPartialMock({ getLanguage: () => mockLanguage });
 });
 
-const mockNavigateFn = vi.fn();
 vi.mock('react-router-dom', async () => {
-    const actual = await vi.importActual<typeof import('react-router-dom')>('react-router-dom');
-    return {
-        ...actual,
+    const { createReactRouterDomPartialMock } = await import('@test/mocks/react-router-dom');
+    return createReactRouterDomPartialMock({
         useNavigate: () => mockNavigateFn,
         useLocation: vi.fn(),
-    };
+    });
 });
 
-const dummyLocation = {
+const dummyLocation: Location = {
     pathname: '/demo',
     search: '?q=test',
     hash: '#section',
     state: {},
     key: '',
-} as Location;
+};
 
 const allRoutes = TEST_ROUTES;
 

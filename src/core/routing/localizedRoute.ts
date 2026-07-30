@@ -42,7 +42,7 @@ export function formPath(route: FormPathParams): string {
     let r = route.pathname;
 
     const pattern = /:([^:/]+)/g;
-    const urlTokens = [];
+    const urlTokens: string[] = [];
 
     let match = null;
     while ((match = pattern.exec(r))) {

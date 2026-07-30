@@ -2,6 +2,8 @@ import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import HttpClient from './HttpClient';
 
+type JsonRecord = Record<string, string | number>;
+
 describe('HttpClient', () => {
     let mockRequest: Mock;
     let client: HttpClient;
@@ -18,7 +20,7 @@ describe('HttpClient', () => {
     });
 
     it('getJson sends GET and parses JSON', async () => {
-        const data = { id: 1, name: 'test' };
+        const data: JsonRecord = { id: 1, name: 'test' };
         mockRequest.mockResolvedValue(new Response(JSON.stringify(data)));
         const result = await client.getJson('/api/test');
         expect(result).toEqual(data);
@@ -26,7 +28,7 @@ describe('HttpClient', () => {
 
     it('post sends POST with JSON body', async () => {
         mockRequest.mockResolvedValue(new Response());
-        const body = { email: 'test@test.com' };
+        const body: JsonRecord = { email: 'test@test.com' };
         await client.post('/api/login', body);
         expect(mockRequest).toHaveBeenCalledWith('/api/login', {
             method: 'POST',
@@ -47,7 +49,7 @@ describe('HttpClient', () => {
 
     it('post merges extra RequestInit options', async () => {
         mockRequest.mockResolvedValue(new Response());
-        const body = { data: 'test' };
+        const body: JsonRecord = { data: 'test' };
         const ri: RequestInit = { headers: { Authorization: 'Bearer abc' } };
         await client.post('/api/test', body, ri);
         expect(mockRequest).toHaveBeenCalledWith('/api/test', {
@@ -59,7 +61,7 @@ describe('HttpClient', () => {
 
     it('put sends PUT with JSON body', async () => {
         mockRequest.mockResolvedValue(new Response());
-        const body = { name: 'updated' };
+        const body: JsonRecord = { name: 'updated' };
         await client.put('/api/users/1', body);
         expect(mockRequest).toHaveBeenCalledWith('/api/users/1', {
             method: 'PUT',
@@ -69,7 +71,7 @@ describe('HttpClient', () => {
 
     it('patch sends PATCH with JSON body', async () => {
         mockRequest.mockResolvedValue(new Response());
-        const body = { name: 'patched' };
+        const body: JsonRecord = { name: 'patched' };
         await client.patch('/api/users/1', body);
         expect(mockRequest).toHaveBeenCalledWith('/api/users/1', {
             method: 'PATCH',
@@ -79,7 +81,7 @@ describe('HttpClient', () => {
 
     it('delete sends DELETE with JSON body', async () => {
         mockRequest.mockResolvedValue(new Response());
-        const body = { id: 1 };
+        const body: JsonRecord = { id: 1 };
         await client.delete('/api/users/1', body);
         expect(mockRequest).toHaveBeenCalledWith('/api/users/1', {
             method: 'DELETE',

@@ -1,5 +1,5 @@
 import 'i18next';
-import Resources from './resources';
+import type Resources from './resources';
 
 type ExtractPlaceholders<S extends string> = S extends `${infer _Start}{{${infer Param}}}${infer Rest}`
     ? Param | ExtractPlaceholders<Rest>

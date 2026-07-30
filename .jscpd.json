@@ -1,0 +1,25 @@
+{
+    "threshold": 0,
+    "gitignore": true,
+    "skipLocal": true,
+    "reporters": ["console", "markdown", "json"],
+    "format": ["typescript", "javascript"],
+    "path": ["src"],
+    "ignore": [
+        "**/node_modules/**",
+        "**/dist/**",
+        "**/coverage/**",
+        "**/*.test.{ts,tsx}",
+        "**/*.spec.{ts,tsx}",
+        "**/*.stories.{ts,tsx}",
+        "**/storybook-static/**",
+        "**/package-lock.json",
+        "**/yarn.lock",
+        "**/pnpm-lock.yaml",
+        "**/i18n/resources.d.ts"
+    ],
+    "minLines": 6,
+    "minTokens": 40,
+    "output": "./reports/jscpd",
+    "absolute": true
+}

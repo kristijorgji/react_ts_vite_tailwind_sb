@@ -2,6 +2,9 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import Storage from './Storage';
 
+type StorageObjectValue = { foo: string };
+type StorageArrayItem = { id: number };
+
 describe('Storage', () => {
     afterEach(() => {
         localStorage.clear();
@@ -15,14 +18,14 @@ describe('Storage', () => {
 
     it('setItem stringifies object values', () => {
         const s = new Storage();
-        const obj = { foo: 'bar' };
+        const obj: StorageObjectValue = { foo: 'bar' };
         s.setItem('key', obj);
         expect(localStorage.setItem).toHaveBeenCalledWith('key', JSON.stringify(obj));
     });
 
     it('setItem stringifies array values', () => {
         const s = new Storage();
-        const arr = [{ id: 1 }];
+        const arr: StorageArrayItem[] = [{ id: 1 }];
         s.setItem('key', arr);
         expect(localStorage.setItem).toHaveBeenCalledWith('key', JSON.stringify(arr));
     });

@@ -1,10 +1,10 @@
 ---
 name: frontend-component-guidelines
 description: >
-  Use when creating, modifying, or reviewing React components in this project.
-  Covers component structure, translations/i18n, Storybook stories, tests, and
-  file organization. Do not use for backend or non-UI TypeScript code (see
-  typescript-best-practices instead).
+    Use when creating, modifying, or reviewing React components in this project.
+    Covers component structure, translations/i18n, Storybook stories, tests, and
+    file organization. Do not use for backend or non-UI TypeScript code (see
+    typescript-best-practices instead).
 ---
 
 # Frontend Component Guidelines
@@ -63,7 +63,7 @@ when the scope clearly warrants it.
 After updating locale JSON files, run:
 
 ```bash
-yarn gen:i18n
+pnpm gen:i18n
 ```
 
 This regenerates `src/i18n/resources.d.ts` so translation keys remain typed and
@@ -86,56 +86,7 @@ ComponentName/
 - **Page components** go in `src/c/components/pages/`.
 - **Shared/reusable components** go in `src/c/components/shared/`.
 
-## Storybook Stories
+## Storybook and tests
 
-Every new component must have a Storybook story file. Follow the existing
-pattern:
-
-```typescript
-import type { Meta, StoryObj } from '@storybook/react';
-
-import MyComponent from './MyComponent';
-
-const meta = {
-    title: 'Pages/MyComponent',  // or 'components/shared/MyComponent'
-    component: MyComponent,
-} satisfies Meta<typeof MyComponent>;
-
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Default: Story = {};
-```
-
-Title conventions:
-
-- Pages: `title: 'Pages/ComponentName'`
-- Shared: `title: 'components/shared/ComponentName'`
-
-Add multiple story variants when the component has distinct visual states (e.g.,
-loading, error, empty, populated).
-
-## Tests
-
-Every new component must have a test file using **Vitest** and
-**React Testing Library**.
-
-Mock `react-i18next` when the component uses translations:
-
-```typescript
-vi.mock('react-i18next', () => ({
-    useTranslation: () => ({
-        t: (key: string) => key,
-    }),
-}));
-```
-
-Test guidelines:
-
-- Test that the component renders without crashing.
-- Test user interactions (clicks, form inputs, etc.).
-- Test conditional rendering (error states, loading states, empty states).
-- Use `screen.getByRole`, `screen.getByLabelText`, and other accessible queries
-  over `getByTestId` whenever possible.
-- See existing tests in `src/c/components/pages/LoginPage/LoginPage.test.tsx`
-  and `src/c/components/shared/Header/Header.test.tsx` as references.
+- Stories: follow [.agents/skills/storybook/SKILL.md](../storybook/SKILL.md).
+- Unit tests: follow [.agents/skills/testing/SKILL.md](../testing/SKILL.md).

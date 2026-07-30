@@ -1,4 +1,4 @@
-import { DEFAULT_LOCALE, LOCALES, type Locale } from '../../src/i18n/locales';
+import { type DEFAULT_LOCALE, LOCALES, type Locale } from '@/i18n/locales';
 
 export const TEST_ROUTES_IDS = {
     INDEX: 'INDEX',

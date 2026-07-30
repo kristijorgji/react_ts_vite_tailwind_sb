@@ -12,6 +12,7 @@ const mandatoryIgnores = [
     '**/*.test.{ts,tsx}',
     '**/*.stories.{ts,tsx}',
     '**/__tests__/**',
+    '**/test/**',
 ];
 
 export default {

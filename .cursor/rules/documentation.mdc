@@ -1,0 +1,11 @@
+---
+description: README and AGENTS scope — document what this repo owns
+globs: "**/*.md"
+alwaysApply: false
+---
+
+# Documentation scope
+
+When editing documentation, read and follow:
+
+- [.agents/skills/documentation/SKILL.md](../../.agents/skills/documentation/SKILL.md)

@@ -1,5 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+import logout from './logout';
+
 const { mockPost, mockClearSession } = vi.hoisted(() => ({
     mockPost: vi.fn(),
     mockClearSession: vi.fn(),
@@ -19,8 +21,6 @@ vi.mock('@/c/session', () => ({
 vi.mock('../i18n/i18n.ts', () => ({
     default: { language: 'en' },
 }));
-
-import logout from './logout';
 
 describe('logout', () => {
     let originalHref: string;

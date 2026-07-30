@@ -3,9 +3,7 @@ import type { ApiLoginResponse } from '@/c/types/api.ts';
 
 import storage from './storage';
 
-type Session = ApiLoginResponse;
-
-export function setSession(data: Session): boolean {
+export function setSession(data: ApiLoginResponse): boolean {
     storage.setItem(STORAGE_KEYS.SESSION, data);
     return true;
 }
@@ -15,14 +13,16 @@ export function clearSession(): void {
 }
 
 export function setSessionAccessToken(at: { accessToken: string; accessTokenExpiresAt: string }): void {
-    storage.setItem(STORAGE_KEYS.SESSION, {
-        ...JSON.parse((storage.getItem(STORAGE_KEYS.SESSION) ?? '{}') as string),
+    const existing = JSON.parse((storage.getItem(STORAGE_KEYS.SESSION) ?? '{}') as string) as ApiLoginResponse;
+    const session: ApiLoginResponse = {
+        ...existing,
         accessToken: at.accessToken,
         accessTokenExpiresAt: at.accessTokenExpiresAt,
-    } as Session);
+    };
+    storage.setItem(STORAGE_KEYS.SESSION, session);
 }
 
-export function getSession(): Session | null {
+export function getSession(): ApiLoginResponse | null {
     if (!(typeof window !== 'undefined' && window && window.localStorage)) {
         return null;
     }
@@ -32,7 +32,7 @@ export function getSession(): Session | null {
         return null;
     }
 
-    return JSON.parse(session as string) as Session;
+    return JSON.parse(session as string) as ApiLoginResponse;
 }
 
 export function getAccessToken(): string | null {

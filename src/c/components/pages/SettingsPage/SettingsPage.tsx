@@ -18,7 +18,7 @@ const SettingsPage: React.FC = () => {
     return (
         <PageContents className={'flex flex-col space-y-8'}>
             <LanguageSwitcher />
-            <button type={'button'} className={'font-semibold'} onClick={handleLogout}>
+            <button data-testid="settings-logout" className={'font-semibold'} type={'button'} onClick={handleLogout}>
                 {t('common:logout')}
             </button>
         </PageContents>

@@ -1,10 +1,10 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
+import beforeSendAddAuth from './beforeSendAddAuth';
+
 vi.mock('@/c/session', () => ({
     getAccessToken: vi.fn(() => 'test-access-token'),
 }));
-
-import beforeSendAddAuth from './beforeSendAddAuth';
 
 describe('beforeSendAddAuth', () => {
     afterEach(() => {

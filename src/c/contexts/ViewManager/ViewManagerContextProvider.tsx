@@ -7,6 +7,6 @@ const ViewManagerContextProvider: React.FC<PropsWithChildren<{ viewManager: View
     const [viewManager, setViewManager] = useState<ViewManager>(p.viewManager);
     const contextValue = useMemo(() => ({ viewManager, setViewManager }), [viewManager]);
 
-    return <ViewManagerContext value={contextValue} children={p.children} />;
+    return <ViewManagerContext children={p.children} value={contextValue} />;
 };
 export default ViewManagerContextProvider;

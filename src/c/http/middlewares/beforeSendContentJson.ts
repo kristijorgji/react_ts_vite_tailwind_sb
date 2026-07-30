@@ -1,3 +1,5 @@
+import cheaders from '@/c/http/cheaders';
+
 export function isFormData(body: unknown | undefined): boolean {
     // just a hacky way to check in backend if this is instance of FormData, which is not available when no window present
     // if (ri.body instanceof FormData) {
@@ -10,14 +12,14 @@ export default function beforeSendContentJson(ri: RequestInit): RequestInit {
         return ri;
     }
 
-    return {
+    const next: RequestInit = {
         ...ri,
         headers: {
             ...ri.headers,
-            ...{
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            [cheaders.ACCEPT_LANGUAGE]: typeof navigator !== 'undefined' ? navigator.language : 'en',
         },
-    } as RequestInit;
+    };
+    return next;
 }

@@ -19,11 +19,12 @@ export default class HttpClient implements IHttpClient {
     }
 
     public post<T>(path: RequestInfo, body?: T, ri?: RequestInit): Promise<Response> {
-        return this.request(path, {
+        const init: RequestInit = {
             method: 'POST',
-            body: isFormData(body) ? body : JSON.stringify(body),
-            ...(ri ? ri : {}),
-        } as never);
+            body: isFormData(body) ? (body as BodyInit) : JSON.stringify(body),
+            ...(ri ?? {}),
+        };
+        return this.request(path, init);
     }
 
     public put<T>(path: RequestInfo, body?: T): Promise<Response> {

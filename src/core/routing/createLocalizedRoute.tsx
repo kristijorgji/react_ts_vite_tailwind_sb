@@ -13,5 +13,5 @@ export default function createLocalizedRoute(
     element: React.ReactNode,
     config: Config['localization']
 ): React.ReactElement {
-    return <Route key={routeId} path={localizeRoutePath(locale, routeId, null, config)} element={element} />;
+    return <Route key={routeId} element={element} path={localizeRoutePath(locale, routeId, null, config)} />;
 }

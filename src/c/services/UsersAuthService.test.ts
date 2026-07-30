@@ -1,15 +1,15 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
+import api from '@/c/api/api';
+import HttpClientException from '@/c/http/HttpClientException';
+
+import UsersAuthService, { type RenewAccessTokenResponse } from './UsersAuthService';
+
 vi.mock('@/c/api/api', () => ({
     default: {
         post: vi.fn(),
     },
 }));
-
-import api from '@/c/api/api';
-import HttpClientException from '@/c/http/HttpClientException';
-
-import UsersAuthService from './UsersAuthService';
 
 describe('UsersAuthService', () => {
     afterEach(() => {
@@ -23,7 +23,7 @@ describe('UsersAuthService', () => {
     });
 
     it('renewAccessToken returns tokens on 200 response', async () => {
-        const tokenData = {
+        const tokenData: RenewAccessTokenResponse = {
             accessToken: 'new-at',
             accessTokenExpiresAt: '2027-01-01',
         };

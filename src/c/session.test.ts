@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { STORAGE_KEYS } from '@/c/services/storage';
+import type { ApiLoginResponse } from '@/c/types/api.ts';
 
 import {
     clearSession,
@@ -12,7 +13,7 @@ import {
     setSessionAccessToken,
 } from './session';
 
-const mockSession = {
+const mockSession: ApiLoginResponse = {
     userId: 'u1',
     sessionId: 's1',
     accessToken: 'at-123',

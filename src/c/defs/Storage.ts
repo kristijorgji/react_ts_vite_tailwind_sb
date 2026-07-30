@@ -7,8 +7,8 @@ export default class Storage {
         this.map = {};
     }
 
-    setItem(key: string, value: string | Array<object> | object) {
-        let parsedValue = value;
+    setItem(key: string, value: string | Array<object> | object): void {
+        let parsedValue: string | Array<object> | object = value;
         if (Array.isArray(value) || (value instanceof Object && value.constructor === Object)) {
             parsedValue = JSON.stringify(value);
         } else {
@@ -22,7 +22,7 @@ export default class Storage {
         }
     }
 
-    removeItem(key: string) {
+    removeItem(key: string): void {
         if (this.isLocalStorageAvailable) {
             window.localStorage.removeItem(key);
         } else {
@@ -30,7 +30,7 @@ export default class Storage {
         }
     }
 
-    getItem(key: string) {
+    getItem(key: string): string | unknown | null {
         if (this.isLocalStorageAvailable) {
             return window.localStorage.getItem(key);
         } else {
@@ -39,7 +39,7 @@ export default class Storage {
     }
 }
 
-function isLocalStorageAvailable() {
+function isLocalStorageAvailable(): boolean {
     const test = 'test';
     try {
         window.localStorage.setItem(test, test);

@@ -1,7 +1,12 @@
-import React from 'react';
+import type React from 'react';
 
 import { act, renderHook } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
+
+import type { ApiLoginResponse } from '@/c/types/api.ts';
+
+import type { loginHandlerI18n } from './useLoginHandler';
+import useLoginHandler from './useLoginHandler';
 
 const { mockRequest, mockSetSession } = vi.hoisted(() => ({
     mockRequest: vi.fn(),
@@ -16,14 +21,10 @@ vi.mock('@/c/session', () => ({
     setSession: mockSetSession,
 }));
 
-vi.mock('react-i18next', () => ({
-    useTranslation: () => ({
-        i18n: { language: 'en' },
-    }),
-}));
-
-import type { loginHandlerI18n } from './useLoginHandler';
-import useLoginHandler from './useLoginHandler';
+vi.mock('react-i18next', async () => {
+    const { createReactI18nextMockModule } = await import('@test/mocks/react-i18next');
+    return createReactI18nextMockModule({ language: 'en', includeT: false });
+});
 
 const i18nMessages: loginHandlerI18n = {
     internalError: 'Internal error',
@@ -96,7 +97,7 @@ describe('useLoginHandler', () => {
     });
 
     it('calls API and sets session on 200 response', async () => {
-        const responseData = {
+        const responseData: ApiLoginResponse = {
             userId: 'u1',
             accessToken: 'at',
             accessTokenExpiresAt: '2027-01-01',

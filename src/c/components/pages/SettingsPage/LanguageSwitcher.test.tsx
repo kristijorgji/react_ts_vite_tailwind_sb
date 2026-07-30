@@ -1,22 +1,24 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-const mockChangeLanguage = vi.fn();
+import LanguageSwitcher from './LanguageSwitcher';
 
-vi.mock('react-i18next', () => ({
-    useTranslation: () => ({
-        i18n: {
-            language: 'en',
-            changeLanguage: mockChangeLanguage,
-        },
-    }),
+const { mockChangeLanguage } = vi.hoisted(() => ({
+    mockChangeLanguage: vi.fn(),
 }));
+
+vi.mock('react-i18next', async () => {
+    const { createReactI18nextMockModule } = await import('@test/mocks/react-i18next');
+    return createReactI18nextMockModule({
+        language: 'en',
+        changeLanguage: mockChangeLanguage,
+        includeT: false,
+    });
+});
 
 vi.mock('@/c/components/shared/icons/ChevronDown.tsx', () => ({
     default: () => <span data-testid="chevron">▼</span>,
 }));
-
-import LanguageSwitcher from './LanguageSwitcher';
 
 describe('LanguageSwitcher', () => {
     afterEach(() => {

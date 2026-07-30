@@ -1,3 +1,5 @@
+import type { ReactElement } from 'react';
+
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, type RouteProps, Routes } from 'react-router-dom';
 import { type Mock, beforeEach, describe, vi } from 'vitest';
@@ -20,7 +22,7 @@ describe('createLocalizedRoute', () => {
         const mockedReturnedLocalizedPath = '/en/magic-route';
         (localizedRoute.localizeRoutePath as Mock).mockReturnValue(mockedReturnedLocalizedPath);
 
-        const DummyComponent = <div>Test KKK Component</div>;
+        const DummyComponent: ReactElement = <div>Test KKK Component</div>;
         const config: Config['localization'] = {
             useLocaleInPath: true,
             usePrefixForDefaultLocale: false,

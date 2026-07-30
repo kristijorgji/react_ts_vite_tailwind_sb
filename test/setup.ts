@@ -3,7 +3,16 @@ import '@testing-library/jest-dom';
 import { type Mock, afterAll, afterEach, beforeAll, vi } from 'vitest';
 
 // --- Mock window.matchMedia ---
-const createMockMatchMedia = (query: string) => ({
+const createMockMatchMedia = (
+    query: string
+): {
+    matches: boolean;
+    media: string;
+    onchange: null;
+    addEventListener: ReturnType<typeof vi.fn>;
+    removeEventListener: ReturnType<typeof vi.fn>;
+    dispatchEvent: ReturnType<typeof vi.fn>;
+} => ({
     matches: query.includes('light'), // Default to preferring light
     media: query,
     onchange: null,

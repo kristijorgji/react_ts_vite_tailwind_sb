@@ -31,6 +31,7 @@
 Built with a modern toolchain for speed, scalability, and developer experience:
 
 - ⚡ [Vite](https://vite.dev/) — lightning-fast build tool
+- 📦 [pnpm](https://pnpm.io/) — package manager
 - 💅 [Tailwind CSS](https://tailwindcss.com/) — utility-first styling & CSS framework
 - 🧹 [ESLint](https://eslint.org/) — code linting
 - 🎨 [Prettier](https://prettier.io/) — code formatting
@@ -45,7 +46,7 @@ Built with a modern toolchain for speed, scalability, and developer experience:
 ### 1. Install Dependencies
 
 ```shell
-yarn install
+pnpm install
 ```
 
 ### 2. Set Up Environment Variables
@@ -73,19 +74,19 @@ source of value.
 Development mode
 
 ```shell
-yarn dev
+pnpm dev
 ```
 
 Build for production
 
 ```shell
-yarn build
+pnpm build
 ```
 
 You can preview locally
 
 ```shell
-yarn preview
+pnpm preview
 ```
 
 ---
@@ -95,7 +96,7 @@ yarn preview
 You can use either
 
 ```shell
-yarn dev
+pnpm dev
 ```
 
 to start with hot module reload the page locally.
@@ -103,7 +104,7 @@ to start with hot module reload the page locally.
 Or you can work with the components library by using `storybook`
 
 ```shell
-yarn storybook
+pnpm storybook
 ```
 
 ## Using React WDYR (Why Did You Render)
@@ -137,31 +138,42 @@ or `useCallback`.
 ### 📝 Example Setup
 
 1. Create a file named `wdyr.ts` in your `src` folder:
-   ```ts
-   import React from 'react';
 
-   if (import.meta.env.MODE === 'development' && import.meta.env.VITE_WDYR === 'true') {
-     const { default: whyDidYouRender } = await import('@welldone-software/why-did-you-render');
-     whyDidYouRender(React, {
-       trackAllPureComponents: true,
-     });
-   }
-   ```
+    ```ts
+    import React from 'react';
+
+    if (import.meta.env.MODE === 'development' && import.meta.env.VITE_WDYR === 'true') {
+        const { default: whyDidYouRender } = await import('@welldone-software/why-did-you-render');
+        whyDidYouRender(React, {
+            trackAllPureComponents: true,
+        });
+    }
+    ```
 
 2. Import it **before any React rendering** in your `main.tsx`:
-   ```ts
-   import './wdyr'; // Must be imported before ReactDOM.createRoot
+    ```ts
+    import './wdyr'; // Must be imported before ReactDOM.createRoot
 
-   import React from 'react';
-   import ReactDOM from 'react-dom/client';
-   import App from './App';
+    import React from 'react';
+    import ReactDOM from 'react-dom/client';
+    import App from './App';
 
-   ReactDOM.createRoot(document.getElementById('root')!).render(<App />);
-   ```
+    ReactDOM.createRoot(document.getElementById('root')!).render(<App />);
+    ```
 
 Now your app will log detailed WDYR output when `VITE_WDYR=true`.
 
 ## ✅ Testing
+
+Vitest tests live next to source as `*.test.ts(x)` under `src/`. Shared test infrastructure lives outside
+`src/` under `test/` and is imported via the `@test/*` path alias.
+
+| Import                         | Purpose                                                          |
+| ------------------------------ | ---------------------------------------------------------------- |
+| `@test/mocks/react-i18next`    | `createReactI18nextMockModule` / `createReactI18nextPartialMock` |
+| `@test/mocks/react-router-dom` | `createReactRouterDomPartialMock` / `createMockNavLinkComponent` |
+| `@test/data/routes`            | Shared `TEST_ROUTES` / `TEST_ROUTES_IDS` fixtures                |
+| `test/setup.ts`                | Global matchMedia + localStorage stubs (Vitest `setupFiles`)     |
 
 The frontend components are tested using:
 
@@ -172,34 +184,30 @@ We use [Vitest](https://vitest.dev/) together
 with [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/) for a fast and modern
 testing workflow.
 
-### 🧪 Test Selectors (`data-testid`)
+### 🧪 Test Selectors
 
-For:
+| Layer                              | Locator policy                                                                                                                                                                                                  |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Unit (Vitest + RTL)**            | With `react-i18next` mocked so `t` returns keys (e.g. `common:logout`), prefer `getByText` / `getByRole` / `getByLabelText` when they assert real UI semantics. `getByTestId` is allowed but not required.      |
+| **Storybook interaction (`play`)** | Prefer `data-testid`. Stories use real i18n and a locale toolbar, so translated labels are unstable across globals. Use role/label queries only when the play function is specifically asserting accessibility. |
+| **E2E (Playwright, later)**        | Prefer `data-testid` — real i18n cannot be mocked, so translated labels are unstable.                                                                                                                           |
 
-- **Storybook interaction tests**
-- **Automated QA / E2E testing**
+Put `data-testid` on interactive production components for Storybook interaction tests and E2E.
+In **production** builds (`vite build` with `mode === 'production'`), `data-testid` is stripped via
+`vite-plugin-react-remove-attributes` so test hooks do not ship to users.
 
-we use the `data-testid` attribute on relevant components.
+To keep testids in a **prod-like** bundle (e.g. Playwright against a built app), set:
 
-These attributes are **automatically stripped from production builds** to keep the DOM clean and avoid leaking testing
-hooks into production.
-
-This is handled via the Vite plugin:
-
-```ts
-import removeAttributes from 'vite-plugin-react-remove-attributes';
-
-removeAttributes({
-    attributes: ['data-testid'],
-});
+```shell
+E2E_TESTING=true pnpm build
 ```
 
-The removal runs **only in production mode** via the Vite configuration.
+`pnpm dev`, Vitest, and Storybook are unaffected — testids remain in the DOM.
 
 ### ▶️ Running tests & updating snapshots
 
 ```shell
-yarn test -u
+pnpm test -u
 ```
 
 ---
@@ -211,26 +219,33 @@ To ensure consistent code quality and commit standards, the project uses:
 - [Husky](https://typicode.github.io/husky) – to manage Git hooks.
 - [lint-staged](https://github.com/okonet/lint-staged) – to run linters on staged files before committing.
 - [commitlint](https://commitlint.js.org/) – to enforce conventional commit messages.
+- [jscpd](https://github.com/kucherenko/jscpd) – cross-file copy-paste detection (`pnpm dupcheck` for source; `pnpm dupcheck:tests` for tests/stories).
+- [knip](https://github.com/webpro-nl/knip) – unused files, exports, and dependencies (`pnpm knip`).
+- [eslint-plugin-sonarjs](https://github.com/SonarSource/eslint-plugin-sonarjs) – in-file duplication rules.
 
 ### Setup
 
 Git hooks are automatically enabled when you install dependencies via:
 
 ```bash
-yarn install
+pnpm install
 ```
 
 ### Usage
 
 - On every `git commit`, Husky will run `lint-staged` to:
-    - Lint and format your staged files using ESLint and Prettier.
+    - Lint/fix staged `*.{ts,tsx,js,jsx}` with ESLint (`eslint --fix` then `eslint` on those files only)
+    - Format staged `*.{json,md,css}` with Prettier
 - Commit messages are validated using Commitlint to follow conventional commit standards.
 
 You can run these manually as well:
 
 ```bash
-yarn lint
-yarn fix
+pnpm lint          # ESLint + jscpd (source) + knip
+pnpm lint:eslint   # ESLint only
+pnpm fix           # ESLint --fix
+pnpm dupcheck:tests        # jscpd on *.test.* / *.stories.* (on-demand)
+pnpm analyze:test-mocks    # near-duplicate vi.mock report (on-demand)
 ```
 
 ### Conventional Commit Examples
@@ -272,7 +287,7 @@ This project leverages [i18next](https://www.i18next.com/) for full i18n support
 To generate TypeScript type definitions for the locale files, run:
 
 ```shell
-yarn gen:i18n
+pnpm gen:i18n
 ```
 
 This enables full type safety and better developer experience when working with translations.
@@ -283,7 +298,7 @@ To identify strings that need to be translated, follow these steps:
 
 1. uncomment the line ` // translationsEslintConfig`
 2. Adjust the file [eslint.translations.config.js](eslint.translations.config.js) ignores and rules as needed
-3. run `yarn lint`
+3. run `pnpm lint`
 
 ---
 
@@ -301,12 +316,12 @@ This project uses localization combined with custom routing logic to handle mult
 ```ts
 export const ROUTES: LocalizedRouteMap = {
     [LOCALES.ENGLISH]: {
-        [ROUTES_IDS.INDEX]: {href: "/"},
-        [ROUTES_IDS.LOGIN]: {href: "/login"},
-        [ROUTES_IDS.SETTINGS]: {href: "/settings"},
+        [ROUTES_IDS.INDEX]: { href: '/' },
+        [ROUTES_IDS.LOGIN]: { href: '/login' },
+        [ROUTES_IDS.SETTINGS]: { href: '/settings' },
     },
     [LOCALES.GERMAN]: {
-        [ROUTES_IDS.LOGIN]: {href: "/anmelden"},
+        [ROUTES_IDS.LOGIN]: { href: '/anmelden' },
     },
 } as const;
 ```
@@ -336,10 +351,10 @@ Unspecified locale routes fall back to default locale (`en`) automatically.
 
 If you encounter unexpected errors like the one above with Storybook's tests, especially related to module resolution,
 and you are certain
-your code is correct, the issue is often a corrupted cache or `yarn dev` is still running.
+your code is correct, the issue is often a corrupted cache or `pnpm dev` is still running.
 
 ```text
-TypeError: 
+TypeError:
 Click to debug the error directly in Storybook: http://localhost:6006/?path=/story/pages-automation--default&addonPanel=storybook/test/panel
 
 Failed to fetch dynamically imported module: http://localhost:63315/node_modules/.vite/deps/react-18-EFOB4VSV.js?v=526442b3
@@ -348,8 +363,8 @@ Failed to fetch dynamically imported module: http://localhost:63315/node_modules
 To fix this, rebuild Storybook and then re-run your tests:
 
 ```shell
-yarn storybook:build
-yarn test
+pnpm storybook:build
+pnpm test
 ```
 
 ## 📄License

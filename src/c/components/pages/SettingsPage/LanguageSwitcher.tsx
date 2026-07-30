@@ -14,12 +14,12 @@ const LanguageIndicator: React.FC<{ code: Locale }> = ({ code }) => {
 
     return (
         <span
+            aria-hidden="true"
             className={'rounded-50% mr-2 inline-block h-2.5 w-2.5'}
             style={{
                 backgroundColor: color,
                 borderRadius: '50%',
             }}
-            aria-hidden="true"
         />
     );
 };
@@ -50,13 +50,14 @@ const LanguageSwitcher: React.FC = () => {
     };
 
     return (
-        <div className="relative inline-block min-w-14 text-left" ref={dropdownRef}>
+        <div ref={dropdownRef} className="relative inline-block min-w-14 text-left">
             <button
-                type="button"
-                className={'flex items-center justify-between font-semibold'}
-                onClick={toggleDropdown}
-                aria-haspopup="true"
+                data-testid="language-switcher"
                 aria-expanded={open}
+                aria-haspopup="true"
+                className={'flex items-center justify-between font-semibold'}
+                type="button"
+                onClick={toggleDropdown}
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--color-btn-primary-hover)')}
                 onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--color-btn-primary)')}
             >
@@ -71,25 +72,26 @@ const LanguageSwitcher: React.FC = () => {
             {/* Dropdown menu */}
             {open && (
                 <div
+                    data-testid="language-switcher-menu"
+                    aria-orientation="vertical"
                     className={'border-header-border bg-bg absolute right-0 z-50 mt-1 w-full rounded-lg border'}
+                    role="menu"
                     style={{
                         boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
                     }}
-                    role="menu"
-                    aria-orientation="vertical"
                 >
                     {languages.map(({ value, text }) => {
                         const selected = value === i18n.language;
                         return (
                             <button
                                 key={value}
-                                type={'button'}
                                 className={clsx(
                                     'flex w-full items-center rounded-none border-none px-4 py-2',
                                     selected ? 'bg-accent font-bold text-white' : 'bg-transparent font-semibold'
                                 )}
-                                onClick={() => changeLanguage(value)}
                                 role="menuitem"
+                                type={'button'}
+                                onClick={() => changeLanguage(value)}
                                 onMouseEnter={(e) => {
                                     if (!selected)
                                         e.currentTarget.style.backgroundColor = 'var(--color-btn-primary-hover)';

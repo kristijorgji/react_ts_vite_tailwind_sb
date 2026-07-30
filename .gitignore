@@ -30,3 +30,5 @@ storybook-static/
 
 # Project specific
 .env
+
+reports/

@@ -1,12 +1,13 @@
-import type { Config } from '@/core/config.ts';
+import type * as ConfigModule from '@/core/config.ts';
 import { type FormPathParams, formPath } from '@/core/routing/localizedRoute.ts';
+import type * as RoutesModule from '@/core/routing/routes.ts';
 
-import { TEST_ROUTES } from '../../../__tests__/data/routes.ts';
+import { TEST_ROUTES } from '@test/data/routes';
 
 describe('localizeRoutePath', () => {
     beforeAll(async () => {
         // Dynamically import the module to override the export
-        const actual = await vi.importActual<typeof import('@/core/routing/routes.ts')>('@/core/routing/routes.ts');
+        const actual = await vi.importActual<typeof RoutesModule>('@/core/routing/routes.ts');
 
         // Override ROUTES export
         Object.defineProperty(actual, 'ROUTES', {
@@ -26,9 +27,9 @@ describe('localizeRoutePath', () => {
         vi.restoreAllMocks();
     });
 
-    function mockLocalizationConfig(config: Config['localization']): void {
+    function mockLocalizationConfig(config: ConfigModule.Config['localization']): void {
         vi.doMock('@/core/config', async () => {
-            const actual = await vi.importActual<typeof import('@/core/config')>('@/core/config');
+            const actual = await vi.importActual<typeof ConfigModule>('@/core/config');
             return {
                 ...actual,
                 default: {
@@ -106,7 +107,7 @@ describe('localizeRoutePath', () => {
 
     describe('should localize properly non default locale', () => {
         it('should form prefixed-locale path when useLocaleInPath is true and any usePrefixForDefaultLocale', async () => {
-            const assertResult = async () => {
+            const assertResult = async (): Promise<void> => {
                 // the re-import is needed in order to fetch again the mocked static config
                 const { localizeRoutePath } = await import('@/core/routing/localizedRoute');
                 expect(
@@ -137,7 +138,7 @@ describe('localizeRoutePath', () => {
         });
 
         it('should form path without locale prefix when useLocaleInPath is false and any usePrefixForDefaultLocale', async () => {
-            const assertResult = async () => {
+            const assertResult = async (): Promise<void> => {
                 const { localizeRoutePath } = await import('@/core/routing/localizedRoute');
                 expect(
                     localizeRoutePath('de', 'DEMO', {

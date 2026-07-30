@@ -41,7 +41,7 @@ export default function AppRouter(): React.ReactElement {
         <RouterContext value={routerContextValue}>
             <Routes>
                 {reactRoutes}
-                <Route path="*" element={<NotFoundPage />} />
+                <Route element={<NotFoundPage />} path="*" />
             </Routes>
         </RouterContext>
     );

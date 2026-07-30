@@ -74,12 +74,12 @@ export const SidebarMenu: React.FC = () => {
             >
                 {/* Toggle Button */}
                 <button
-                    type={'button'}
-                    onClick={toggleExpanded}
                     className={clsx(
                         'flex h-14 rounded-none bg-transparent p-3 hover:font-bold focus:outline-none',
                         expanded ? 'justify-end' : 'justify-center'
                     )}
+                    type={'button'}
+                    onClick={toggleExpanded}
                 >
                     {!expanded ? <ChevronsRight size={toggleIconSize} /> : <ChevronsLeft size={toggleIconSize} />}
                 </button>
@@ -129,11 +129,11 @@ export const SidebarMenu: React.FC = () => {
                     return (
                         <NavLink key={routeId} to={localizedPath}>
                             <button
-                                type={'button'}
                                 className={clsx(
                                     'flex flex-col items-center bg-transparent hover:font-bold',
                                     pathname === localizedPath ? 'text-accent' : ''
                                 )}
+                                type={'button'}
                             >
                                 {entry.icon}
                                 <span className="text-[10px]">{entry.label}</span>
@@ -163,12 +163,12 @@ function renderDesktopMenuItems({
         return (
             <NavLink key={routeId} to={localizedPath}>
                 <button
-                    type={'button'}
                     className={clsx(
                         'flex w-full items-center gap-3 rounded-none bg-transparent px-3 py-2 hover:font-bold',
                         expanded ? 'py-4' : 'flex-col justify-center py-2',
                         pathname === localizedPath ? 'text-accent' : ''
                     )}
+                    type={'button'}
                 >
                     {entry.icon}
                     <span className={clsx('text-xs', expanded ? 'text-sm opacity-100' : 'text-center text-[10px]')}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 
 import { type Config } from '@/core/config';
 import createLocalizedRoute from '@/core/routing/createLocalizedRoute.tsx';
@@ -41,7 +41,7 @@ export default function createAllReactRoutes(
     reactRoutes.push(
         ...forLocales.flatMap((locale) =>
             Object.entries(routeConfigs).map(([routeId, element]) =>
-                createLocalizedRoute(locale as Locale, routeId as RouteId, element, config)
+                createLocalizedRoute(locale, routeId as RouteId, element, config)
             )
         )
     );

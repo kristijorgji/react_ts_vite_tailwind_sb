@@ -1,0 +1,24 @@
+{
+    "$schema": "https://unpkg.com/knip@5/schema.json",
+    "entry": [
+        "index.html",
+        "src/wdyr.ts",
+        "src/i18n/i18next.d.ts",
+        ".storybook/**/*.{ts,tsx}",
+        "vite-env-validator.ts",
+        "eslint.translations.config.js",
+        "eslint/**/*.{js,cjs,mjs}",
+        "scripts/**/*.{ts,js}"
+    ],
+    "project": [
+        "src/**/*.{ts,tsx}",
+        "test/**/*.{ts,tsx}",
+        ".storybook/**/*.{ts,tsx}",
+        "eslint/**/*.{js,ts}",
+        "scripts/**/*.{ts,js}"
+    ],
+    "ignoreDependencies": ["tailwindcss", "c8", "estree"],
+    "ignoreIssues": {
+        "src/env.ts": ["types"]
+    }
+}
