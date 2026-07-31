@@ -1,1 +1,36 @@
-.cursorignore
+# .aiignore Source of truth for agent hard-ignore patterns. Tool-specific names are symlinks here:
+# .cursorignore, .codeiumignore, .aiexclude, .clineignore, .geminiignore → .aiignore
+
+# Dependencies and build
+node_modules/
+dist/
+storybook-static/
+
+# Generated files (run pnpm gen:i18n to regenerate)
+src/i18n/resources.d.ts
+
+# Test artifacts
+coverage/
+__snapshots__/
+*.snap
+
+# Git hooks
+.husky/
+
+# CI/CD
+.github/
+
+# Secrets and local env
+.env
+.env.*
+!.env.dist
+
+# IDE / editor
+.idea/
+.vscode/
+
+# Package manager / logs
+*.log
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*

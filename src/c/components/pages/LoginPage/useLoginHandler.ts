@@ -1,4 +1,5 @@
-import React, { useReducer, useRef, useState } from 'react';
+import type React from 'react';
+import { useRef, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
@@ -7,7 +8,6 @@ import { request } from '@/c/api/api';
 import paths from '@/c/api/paths';
 import loginSchema from '@/c/forms/loginSchema';
 import { setSession } from '@/c/session';
-import type { ApiLoginResponse } from '@/c/types/api.ts';
 import { getJson } from '@/c/utils/http';
 import { localizeRoutePath } from '@/core/routing/localizedRoute.ts';
 import { ROUTES_IDS } from '@/core/routing/routes.ts';
@@ -27,18 +27,31 @@ export type loginHandlerI18n = {
     };
 };
 
+type LoginHandlerResult = {
+    onLoginSubmit: (event: React.FormEvent) => Promise<void>;
+    setEmail: (value: string, rerender?: boolean) => void;
+    setPassword: (value: string) => void;
+    email: string;
+    password: string;
+    error: string | undefined;
+};
+
 export default function useLoginHandler(
     setInProgress: (value: boolean) => void,
     i18n: loginHandlerI18n,
     prefilledEmail?: string
-) {
+): LoginHandlerResult {
     const { i18n: i18nFn } = useTranslation();
-    const [, forceUpdate] = useReducer((x) => x + 1, 0);
     const emailRef = useRef<string>(prefilledEmail || '');
     const passwordRef = useRef<string>('');
+    // Snapshot only updates when setEmail(..., true) asks for a re-render (uncontrolled inputs).
+    const [snapshot, setSnapshot] = useState({
+        email: prefilledEmail || '',
+        password: '',
+    });
     const [error, setError] = useState<string>();
 
-    async function onLoginSubmit(event: React.FormEvent) {
+    async function onLoginSubmit(event: React.FormEvent): Promise<void> {
         const e = event.nativeEvent;
         e.preventDefault();
 
@@ -76,11 +89,11 @@ export default function useLoginHandler(
         const data = await getJson<any>(r);
 
         if (r.status === 200) {
-            setSession(data as unknown as ApiLoginResponse);
+            setSession(data);
             const qp = new URLSearchParams(window.location.search);
-            window.location.href = qp.has('returnUrl')
-                ? qp.get('returnUrl')!
-                : localizeRoutePath(i18nFn.language as Locale, ROUTES_IDS.LOGIN);
+            const returnUrl = qp.get('returnUrl');
+            window.location.href =
+                returnUrl !== null ? returnUrl : localizeRoutePath(i18nFn.language as Locale, ROUTES_IDS.LOGIN);
         } else if (r.status === 401) {
             setError(i18n.invalidCredentials);
         } else if (r.status === 400) {
@@ -94,14 +107,14 @@ export default function useLoginHandler(
         }
     }
 
-    const setEmail = (value: string, rerender = false) => {
+    const setEmail = (value: string, rerender = false): void => {
         emailRef.current = value;
         if (rerender) {
-            forceUpdate();
+            setSnapshot({ email: emailRef.current, password: passwordRef.current });
         }
     };
 
-    const setPassword = (value: string) => {
+    const setPassword = (value: string): void => {
         passwordRef.current = value;
     };
 
@@ -109,8 +122,8 @@ export default function useLoginHandler(
         onLoginSubmit,
         setEmail,
         setPassword,
-        email: emailRef.current,
-        password: passwordRef.current,
+        email: snapshot.email,
+        password: snapshot.password,
         error: error,
     };
 }

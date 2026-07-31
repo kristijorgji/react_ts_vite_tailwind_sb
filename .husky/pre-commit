@@ -5,16 +5,16 @@ set -e
 echo "Running pre-commit checks..."
 
 echo "Generating i18n files..."
-yarn gen:i18n
+pnpm gen:i18n
 
 echo "Running lint-staged..."
-yarn lint-staged
+pnpm lint-staged
 
 echo "Running build and storybook:build..."
-yarn build
-yarn storybook:build
+pnpm build
+pnpm storybook:build
 
 echo "Running all the tests to check the coverage..."
-yarn test
+pnpm test
 
 echo "Pre-commit checks passed!"

@@ -1,16 +1,17 @@
 import { renderHook } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
+import { useDemoLogin } from './useDemoLogin';
+
 const { mockSetSession, mockSetDemoMode } = vi.hoisted(() => ({
     mockSetSession: vi.fn(),
     mockSetDemoMode: vi.fn(),
 }));
 
-vi.mock('react-i18next', () => ({
-    useTranslation: () => ({
-        i18n: { language: 'en' },
-    }),
-}));
+vi.mock('react-i18next', async () => {
+    const { createReactI18nextMockModule } = await import('@test/mocks/react-i18next');
+    return createReactI18nextMockModule({ language: 'en', includeT: false });
+});
 
 vi.mock('@/c/session', () => ({
     setSession: mockSetSession,
@@ -22,11 +23,13 @@ vi.mock('@/c/demo', () => ({
 }));
 
 vi.mock('@/env', () => ({
-    isDev: true,
-    default: { appEnv: 'local', log: { level: 'debug' }, apiBasePath: 'http://localhost' },
+    default: {
+        appEnv: 'local',
+        log: { level: 'debug' },
+        apiBasePath: 'http://localhost',
+        isDev: true,
+    },
 }));
-
-import { useDemoLogin } from './useDemoLogin';
 
 describe('useDemoLogin', () => {
     afterEach(() => {

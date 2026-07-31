@@ -1,13 +1,12 @@
 import { getAccessToken } from '@/c/session';
 
 export default function beforeSendAddAuth(ri: RequestInit): RequestInit {
-    return {
+    const next: RequestInit = {
         ...ri,
         headers: {
             ...ri.headers,
-            ...{
-                Authorization: `Bearer ${getAccessToken()}`,
-            },
+            Authorization: `Bearer ${getAccessToken()}`,
         },
-    } as RequestInit;
+    };
+    return next;
 }

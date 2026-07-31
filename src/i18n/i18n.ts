@@ -9,6 +9,7 @@ import { DEFAULT_LOCALE } from './locales';
 import { SUPPORTED_LOCALES } from './locales.ts';
 
 const isDev = import.meta.env.DEV;
+const isTestOrStorybook = Boolean(import.meta.env.VITEST) || Boolean(import.meta.env.STORYBOOK);
 
 i18n.use(HttpBackend)
     .use(LanguageDetector)
@@ -17,9 +18,12 @@ i18n.use(HttpBackend)
         fallbackLng: DEFAULT_LOCALE,
         supportedLngs: SUPPORTED_LOCALES,
         defaultNS: ['common'],
-        debug: isDev,
+        debug: isDev && !isTestOrStorybook,
         interpolation: {
             escapeValue: false,
+        },
+        react: {
+            useSuspense: !isTestOrStorybook,
         },
         backend: {
             loadPath: '/locales/{{lng}}/{{ns}}.json',

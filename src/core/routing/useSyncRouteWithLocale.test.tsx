@@ -8,39 +8,36 @@ import type { Mock } from 'vitest';
 import * as localizedRoute from '@/core/routing/localizedRoute.ts';
 import { type LocalizedRouteMap } from '@/core/routing/routes.ts';
 
+import { TEST_ROUTES, TEST_ROUTES_IDS } from '@test/data/routes';
+
 import { useSyncRouteWithLocale } from './useSyncRouteWithLocale';
-import { TEST_ROUTES, TEST_ROUTES_IDS } from '../../../__tests__/data/routes.ts';
 import { DEFAULT_LOCALE, type Locale } from '../../i18n/locales.ts';
 import type { Config } from '../config';
 
 let mockLanguage: Locale = DEFAULT_LOCALE;
+const { mockNavigate } = vi.hoisted(() => ({
+    mockNavigate: vi.fn(),
+}));
+
 vi.mock('react-i18next', async () => {
-    const actual = await vi.importActual<typeof import('react-i18next')>('react-i18next');
-    return {
-        ...actual,
-        useTranslation: () => ({
-            t: (key: string) => key,
-            i18n: { language: mockLanguage },
-        }),
-    };
+    const { createReactI18nextPartialMock } = await import('@test/mocks/react-i18next');
+    return createReactI18nextPartialMock({ getLanguage: () => mockLanguage });
 });
 
-const defaultLocation = {
+const defaultLocation: Location = {
     pathname: '/en/settings',
     search: '?q=test',
     hash: '#section',
     state: {},
     key: '',
-} as Location;
-const mockNavigate = vi.fn();
+};
 let mockLocation = defaultLocation;
 vi.mock('react-router-dom', async () => {
-    const actual = await vi.importActual<typeof import('react-router-dom')>('react-router-dom');
-    return {
-        ...actual,
+    const { createReactRouterDomPartialMock } = await import('@test/mocks/react-router-dom');
+    return createReactRouterDomPartialMock({
         useNavigate: () => mockNavigate,
         useLocation: () => mockLocation,
-    };
+    });
 });
 
 vi.mock('@/core/routing/localizedRoute', () => ({
@@ -111,9 +108,9 @@ describe('useSyncRouteWithLocale', () => {
 
             render(
                 <TestComponentThatChangesLocale
+                    changeToLocale={mocks.changeToLocale}
                     initialLocale={mocks.initialLocale}
                     localizationConfig={mocks.localizationConfig}
-                    changeToLocale={mocks.changeToLocale}
                 />
             );
 

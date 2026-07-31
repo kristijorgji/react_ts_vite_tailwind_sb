@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
+import LoginFormFields from '@/c/components/pages/LoginPage/LoginFormFields.tsx';
 import useLoginHandler from '@/c/components/pages/LoginPage/useLoginHandler.ts';
 import { useDemoLogin } from '@/c/hooks/auth/useDemoLogin';
 import usePageTitle from '@/c/hooks/usePageTitle.ts';
@@ -39,41 +40,13 @@ const LoginPage: React.FC = () => {
                     {t('guest:login.signInToAccount')}
                 </h2>
 
-                <form onSubmit={onLoginSubmit} className="space-y-5">
-                    <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                            {t('common:email')}
-                        </label>
-                        <input
-                            type="email"
-                            id="email"
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                            className="focus:ring-primary focus:border-primary mt-1 block w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-900 shadow-sm focus:ring focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-white"
-                        />
-                    </div>
-
-                    <div>
-                        <label
-                            htmlFor="password"
-                            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                        >
-                            {t('common:password')}
-                        </label>
-                        <input
-                            type="password"
-                            id="password"
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                            className="focus:ring-primary focus:border-primary mt-1 block w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-900 shadow-sm focus:ring focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-white"
-                        />
-                    </div>
-
-                    {error && <div style={{ color: 'red' }}>{error}</div>}
+                <form className="space-y-5" onSubmit={onLoginSubmit}>
+                    <LoginFormFields error={error} onEmailChange={setEmail} onPasswordChange={setPassword} />
                     <button
-                        type="submit"
+                        data-testid="login-submit"
                         className="focus:ring-primary/50 w-full rounded-md px-4 py-2 focus:ring focus:outline-none"
                         disabled={inProgress}
+                        type="submit"
                     >
                         {t('guest:login.signIn')}
                     </button>
@@ -82,10 +55,11 @@ const LoginPage: React.FC = () => {
                 {isDemoAvailable && (
                     <div className="mt-4 border-t border-gray-200 pt-4 dark:border-gray-700">
                         <button
+                            data-testid="login-demo"
+                            className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:ring focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+                            disabled={inProgress}
                             type="button"
                             onClick={handleDemoLogin}
-                            disabled={inProgress}
-                            className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:ring focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
                         >
                             {t('guest:login.demoAccount')}
                         </button>

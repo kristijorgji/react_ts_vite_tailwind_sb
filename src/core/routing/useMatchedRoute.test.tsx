@@ -9,7 +9,7 @@ import { useRouterContext } from '@/core/routing/RouterContext.tsx';
 import useMatchedRoute from '@/core/routing/useMatchedRoute';
 import { DEFAULT_LOCALE } from '@/i18n/locales.ts';
 
-import { TEST_ROUTES, type TestRouteId } from '../../../__tests__/data/routes.ts';
+import { TEST_ROUTES, type TestRouteId } from '@test/data/routes';
 
 vi.mock('react-i18next', () => ({
     useTranslation: vi.fn(),
@@ -32,11 +32,24 @@ const mockUseLocation = useLocation as unknown as Mock;
 const mockUseRouterContext = useRouterContext as unknown as Mock;
 const mockFindRoute = findRoute as unknown as Mock;
 
+type TranslationMockValue = { i18n: { language: string } };
+type RouterContextMockValue = {
+    config: Config['localization'];
+    defaultLocale: string;
+    routes: typeof TEST_ROUTES;
+};
+
 const MOCK_ROUTER_CONFIG: Config['localization'] = {
     useLocaleInPath: true,
     usePrefixForDefaultLocale: false,
 };
-const MOCK_DEFAULT_LOCATION = { pathname: '/settings', search: '', hash: '', state: null, key: 'default' } as Location;
+const MOCK_DEFAULT_LOCATION: Location = {
+    pathname: '/settings',
+    search: '',
+    hash: '',
+    state: null,
+    key: 'default',
+};
 const MOCK_DEFAULT_LOCALE = DEFAULT_LOCALE;
 const MOCK_ROUTES = TEST_ROUTES;
 
@@ -44,20 +57,20 @@ describe('useMatchedRoute', () => {
     beforeEach(() => {
         vi.clearAllMocks();
 
-        mockUseTranslation.mockReturnValue({ i18n: { language: DEFAULT_LOCALE } });
+        mockUseTranslation.mockReturnValue({ i18n: { language: DEFAULT_LOCALE } } satisfies TranslationMockValue);
         mockUseLocation.mockReturnValue(MOCK_DEFAULT_LOCATION); // Default location
         mockUseRouterContext.mockReturnValue({
             config: MOCK_ROUTER_CONFIG,
             defaultLocale: MOCK_DEFAULT_LOCALE,
             routes: MOCK_ROUTES,
-        });
+        } satisfies RouterContextMockValue);
         // Default return for findRoute: usually null or an object indicating no match
         mockFindRoute.mockReturnValue(null);
     });
 
     // Test Case 1: Initial render with default values
     it('should call findRoute with initial dependencies and return its result', () => {
-        const mockFoundRoute = { matched: true, params: {}, route: { path: '/' } };
+        const mockFoundRoute: FindRouteResult<TestRouteId> = { routeId: 'SETTINGS', params: null };
         mockFindRoute.mockReturnValueOnce(mockFoundRoute); // Set return value for this specific call
 
         const { result } = renderHook(() => useMatchedRoute());
@@ -88,7 +101,7 @@ describe('useMatchedRoute', () => {
         expect(mockFindRoute).toHaveBeenCalledTimes(1);
 
         // Simulate language change
-        mockUseTranslation.mockReturnValue({ i18n: { language: 'fr' } });
+        mockUseTranslation.mockReturnValue({ i18n: { language: 'fr' } } satisfies TranslationMockValue);
         act(() => rerender()); // Re-render the hook
 
         // Assert findRoute was called again with the new language
@@ -117,7 +130,13 @@ describe('useMatchedRoute', () => {
         expect(mockFindRoute).toHaveBeenCalledTimes(1);
 
         // Simulate location change
-        mockUseLocation.mockReturnValue({ pathname: '/login', search: '', hash: '', state: null, key: 'new' });
+        mockUseLocation.mockReturnValue({
+            pathname: '/login',
+            search: '',
+            hash: '',
+            state: null,
+            key: 'new',
+        } satisfies Location);
         act(() => rerender()); // Re-render the hook
 
         // Assert findRoute was called again with the new location
@@ -127,7 +146,7 @@ describe('useMatchedRoute', () => {
             MOCK_DEFAULT_LOCALE,
             MOCK_ROUTES,
             'en',
-            { pathname: '/login', search: '', hash: '', state: null, key: 'new' } // New location
+            { pathname: '/login', search: '', hash: '', state: null, key: 'new' } satisfies Location // New location
         );
         expect(result.current).toEqual(newLocationFoundRoute);
     });
@@ -154,7 +173,7 @@ describe('useMatchedRoute', () => {
             config: NEW_ROUTER_CONFIG, // Changed config
             defaultLocale: MOCK_DEFAULT_LOCALE,
             routes: MOCK_ROUTES,
-        });
+        } satisfies RouterContextMockValue);
         act(() => rerender()); // Re-render the hook
 
         // Assert findRoute was called again with the new config

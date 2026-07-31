@@ -1,6 +1,3 @@
-// eslint-disable-next-line import/order
-import i18n from '../src/i18n/i18n.ts';
-
 import React, { useEffect, useRef } from 'react';
 
 import { type Decorator, type Preview } from '@storybook/react';
@@ -12,6 +9,7 @@ import { ThemeProvider } from '@/c/contexts/Theme/ThemeProvider';
 import useTheme from '@/c/contexts/Theme/useTheme.ts';
 import { addOrUpdateUrlQueryParameter } from '@/c/utils/http.ts';
 
+import i18n from '../src/i18n/i18n.ts';
 import { LOCALES, LOCALE_FLAGS, getLocalesSelectionItems } from '../src/i18n/locales.ts';
 
 const localeItems = getLocalesSelectionItems();
@@ -109,6 +107,17 @@ const ThemeSyncWrapper = ({
     return children;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components -- Storybook decorator helper
+function LocaleSync({ locale, children }: { locale?: string; children: React.ReactNode }) {
+    useEffect(() => {
+        if (locale && i18n.language !== locale) {
+            void i18n.changeLanguage(locale);
+        }
+    }, [locale]);
+
+    return children;
+}
+
 /**
  * Custom Storybook decorator to sync the selected theme and locale between Storybook and our app.
  *
@@ -117,27 +126,19 @@ const ThemeSyncWrapper = ({
  *   and updates Storybook's controls accordingly.
  */
 const withThemeAndLocale: Decorator = (Story, context) => {
-    const { locale } = context.globals;
-
-    // sync the locale chosen in the custom storybook locale toolbar with the one we use for the components
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-        if (locale && i18n.language !== locale) {
-            i18n.changeLanguage(locale);
-        }
-    }, [locale]);
-
     return (
         <ThemeProvider>
-            <ThemeSyncWrapper storyBookTheme={context.globals.theme}>
-                <div
-                    style={{
-                        backgroundColor: context.globals.theme === 'dark' ? '#000' : '#fff',
-                    }}
-                >
-                    <Story />
-                </div>
-            </ThemeSyncWrapper>
+            <LocaleSync locale={context.globals.locale}>
+                <ThemeSyncWrapper storyBookTheme={context.globals.theme}>
+                    <div
+                        style={{
+                            backgroundColor: context.globals.theme === 'dark' ? '#000' : '#fff',
+                        }}
+                    >
+                        <Story />
+                    </div>
+                </ThemeSyncWrapper>
+            </LocaleSync>
         </ThemeProvider>
     );
 };

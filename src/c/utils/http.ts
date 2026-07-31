@@ -59,7 +59,11 @@ export async function cloneResponse(response: Response): Promise<Response> {
 
     if (response.body) {
         // Read the original response body as a stream
-        const bodyStream = await response.clone().body!.getReader().read();
+        const clonedBodyStream = response.clone().body;
+        if (!clonedBodyStream) {
+            throw new Error('Cloned response body is null');
+        }
+        const bodyStream = await clonedBodyStream.getReader().read();
         clonedBody = new ReadableStream({
             start(controller) {
                 controller.enqueue(bodyStream.value);
@@ -68,7 +72,7 @@ export async function cloneResponse(response: Response): Promise<Response> {
         });
     }
 
-    return new Response(clonedBody as BodyInit | null | undefined, {
+    return new Response(clonedBody, {
         status: response.status,
         statusText: response.statusText,
         headers: response.headers,

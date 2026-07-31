@@ -1,0 +1,11 @@
+---
+description: Enforce TypeScript architecture and coding standards
+globs: "**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# TypeScript
+
+When writing, reviewing, or refactoring TypeScript, read and follow:
+
+- [.agents/skills/typescript-best-practices/SKILL.md](../../.agents/skills/typescript-best-practices/SKILL.md)

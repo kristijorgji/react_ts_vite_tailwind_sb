@@ -2,7 +2,12 @@ import { describe, expect, it } from 'vitest';
 
 import loginSchema from './loginSchema';
 
-const i18n = {
+type LoginSchemaI18n = {
+    emailValidation: { required: string; email: string };
+    passwordValidation: { matches: string };
+};
+
+const i18n: LoginSchemaI18n = {
     emailValidation: { required: 'Email required', email: 'Invalid email' },
     passwordValidation: { matches: 'Password too short' },
 };

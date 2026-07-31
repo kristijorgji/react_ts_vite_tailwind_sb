@@ -13,5 +13,9 @@ export const RouterContext = createContext<RouterContextValue | undefined>(undef
 RouterContext.displayName = 'RouterContext';
 
 export const useRouterContext = (): RouterContextValue => {
-    return use(RouterContext)!;
+    const value = use(RouterContext);
+    if (!value) {
+        throw new Error('useRouterContext must be used within RouterContext provider');
+    }
+    return value;
 };

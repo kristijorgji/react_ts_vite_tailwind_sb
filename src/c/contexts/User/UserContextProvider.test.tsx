@@ -3,6 +3,11 @@ import { use } from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
+import { UserContext } from '@/c/contexts/User/UserContext';
+import type { MeUser } from '@/c/types/api.ts';
+
+import UserContextProvider from './UserContextProvider';
+
 const { mockGetJson, mockIsLoggedIn } = vi.hoisted(() => ({
     mockGetJson: vi.fn(),
     mockIsLoggedIn: vi.fn(),
@@ -15,10 +20,6 @@ vi.mock('@/c/api/api', () => ({
 vi.mock('@/c/session', () => ({
     isApiLoggedIn: mockIsLoggedIn,
 }));
-
-import { UserContext } from '@/c/contexts/User/UserContext';
-
-import UserContextProvider from './UserContextProvider';
 
 function TestConsumer() {
     const { data } = use(UserContext);
@@ -34,7 +35,12 @@ describe('UserContextProvider', () => {
 
     it('shows loading then resolves with user data', async () => {
         mockIsLoggedIn.mockReturnValue(true);
-        mockGetJson.mockResolvedValue({ id: '1', name: 'John', email: 'john@test.com', config: { permissions: [] } });
+        mockGetJson.mockResolvedValue({
+            id: '1',
+            name: 'John',
+            email: 'john@test.com',
+            config: { permissions: [] },
+        } satisfies MeUser);
 
         render(
             <UserContextProvider>

@@ -1,20 +1,22 @@
 import { envSchema } from './env.schema';
 
-const _env = envSchema.safeParse(import.meta.env);
+const parsed = envSchema.safeParse(import.meta.env);
 
-if (!_env.success) {
-    console.error('❌ Invalid environment variables:', _env.error.format());
+if (!parsed.success) {
+    console.error('❌ Invalid environment variables:', parsed.error.format());
     throw new Error('Invalid environment variables');
 }
 
+// eslint-disable-next-line no-restricted-syntax -- derive AppEnv from the runtime object via typeof
 const env = {
-    appEnv: _env.data.VITE_APP_ENV,
+    appEnv: parsed.data.VITE_APP_ENV,
     log: {
-        level: _env.data.VITE_APP_LOG_LEVEL,
+        level: parsed.data.VITE_APP_LOG_LEVEL,
     },
-    apiBasePath: _env.data.VITE_API_BASE_PATH,
+    apiBasePath: parsed.data.VITE_API_BASE_PATH,
+    isDev: parsed.data.VITE_APP_ENV === 'local' || parsed.data.VITE_APP_ENV === 'development',
 };
 
-export const isDev = env.appEnv === 'local' || env.appEnv === 'development';
+export type AppEnv = typeof env;
 
 export default env;

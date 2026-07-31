@@ -9,23 +9,30 @@ import useDidMountEffect from '@/c/hooks/core/useDidMountEffect.ts';
 import { isApiLoggedIn } from '@/c/session';
 import type { MeUser } from '@/c/types/api.ts';
 
+function getInitialUserData(): LoadableData<MeUser, Error | Response> {
+    if (isDemoMode()) {
+        return LoadableData.value(DEMO_USER);
+    }
+
+    if (!isApiLoggedIn()) {
+        return LoadableData.error(new Error('not_logged_in'));
+    }
+
+    return LoadableData.loading();
+}
+
 const UserContextProvider: React.FC<PropsWithChildren> = (p) => {
-    const [data, setData] = useState<LoadableData<MeUser, Error | Response>>(LoadableData.loading());
+    const [data, setData] = useState<LoadableData<MeUser, Error | Response>>(getInitialUserData);
     const contextValue = useMemo(() => ({ data, setData }), [data]);
 
     useDidMountEffect(() => {
-        if (isDemoMode()) {
-            setData(LoadableData.value(DEMO_USER));
+        if (isDemoMode() || !isApiLoggedIn()) {
             return;
         }
 
-        if (isApiLoggedIn()) {
-            api.getJson<MeUser>(paths.me)
-                .then((value) => setData(LoadableData.value(value)))
-                .catch((reason) => setData(LoadableData.error(reason)));
-        } else {
-            setData(LoadableData.error(new Error('not_logged_in')));
-        }
+        api.getJson<MeUser>(paths.me)
+            .then((value) => setData(LoadableData.value(value)))
+            .catch((reason: Error | Response) => setData(LoadableData.error(reason)));
     });
 
     let children = p.children;

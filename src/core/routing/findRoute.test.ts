@@ -2,26 +2,25 @@ import type { Location } from 'react-router-dom';
 import { describe, expect } from 'vitest';
 
 import findRoute, { type FindRouteResult } from '@/core/routing/findRoute.ts';
-import type { LocalizedRouteMap } from '@/core/routing/routes.ts';
 
-import { TEST_ROUTES } from '../../../__tests__/data/routes.ts';
+import { TEST_ROUTES } from '@test/data/routes';
 
 describe('findRoute', () => {
-    const prefixedEnLocation = {
+    const prefixedEnLocation: Location = {
         pathname: '/en/settings',
         search: '?q=test',
         hash: '#section',
         state: {},
         key: '',
-    } as Location;
+    };
 
-    const nonPrefixedEnLocation = {
+    const nonPrefixedEnLocation: Location = {
         pathname: '/settings',
         search: '?q=test',
         hash: '#section',
         state: {},
         key: '',
-    } as Location;
+    };
 
     const expectedFoundSettingsRoute: FindRouteResult = {
         params: {
@@ -42,7 +41,7 @@ describe('findRoute', () => {
                     usePrefixForDefaultLocale: false,
                 },
                 'en',
-                TEST_ROUTES as LocalizedRouteMap,
+                TEST_ROUTES,
                 'en',
                 {
                     ...prefixedEnLocation,
@@ -58,7 +57,7 @@ describe('findRoute', () => {
                 urlParams: {},
             },
             routeId: 'INDEX',
-        });
+        } satisfies FindRouteResult);
     });
 
     describe('handles default locale', () => {
@@ -71,7 +70,7 @@ describe('findRoute', () => {
                             usePrefixForDefaultLocale: false,
                         },
                         'en',
-                        TEST_ROUTES as LocalizedRouteMap,
+                        TEST_ROUTES,
                         'en',
                         prefixedEnLocation
                     )
@@ -86,7 +85,7 @@ describe('findRoute', () => {
                             usePrefixForDefaultLocale: true,
                         },
                         'en',
-                        TEST_ROUTES as LocalizedRouteMap,
+                        TEST_ROUTES,
                         'en',
                         prefixedEnLocation
                     )
@@ -101,7 +100,7 @@ describe('findRoute', () => {
                             usePrefixForDefaultLocale: false,
                         },
                         'en',
-                        TEST_ROUTES as LocalizedRouteMap,
+                        TEST_ROUTES,
                         'en',
                         {
                             ...prefixedEnLocation,
@@ -117,7 +116,7 @@ describe('findRoute', () => {
                             usePrefixForDefaultLocale: true,
                         },
                         'en',
-                        TEST_ROUTES as LocalizedRouteMap,
+                        TEST_ROUTES,
                         'en',
                         {
                             ...prefixedEnLocation,
@@ -137,7 +136,7 @@ describe('findRoute', () => {
                             usePrefixForDefaultLocale: false,
                         },
                         'en',
-                        TEST_ROUTES as LocalizedRouteMap,
+                        TEST_ROUTES,
                         'en',
                         nonPrefixedEnLocation
                     )
@@ -152,7 +151,7 @@ describe('findRoute', () => {
                             usePrefixForDefaultLocale: true,
                         },
                         'en',
-                        TEST_ROUTES as LocalizedRouteMap,
+                        TEST_ROUTES,
                         'en',
                         nonPrefixedEnLocation
                     )
@@ -168,7 +167,7 @@ describe('findRoute', () => {
                         usePrefixForDefaultLocale: false,
                     },
                     'en',
-                    TEST_ROUTES as LocalizedRouteMap,
+                    TEST_ROUTES,
                     'en',
                     {
                         ...nonPrefixedEnLocation,
@@ -189,7 +188,7 @@ describe('findRoute', () => {
                             usePrefixForDefaultLocale: false,
                         },
                         'en',
-                        TEST_ROUTES as LocalizedRouteMap,
+                        TEST_ROUTES,
                         'de',
                         {
                             ...prefixedEnLocation,
@@ -209,7 +208,7 @@ describe('findRoute', () => {
                             usePrefixForDefaultLocale: true,
                         },
                         'en',
-                        TEST_ROUTES as LocalizedRouteMap,
+                        TEST_ROUTES,
                         'de',
                         {
                             ...prefixedEnLocation,
@@ -229,7 +228,7 @@ describe('findRoute', () => {
                     usePrefixForDefaultLocale: true,
                 },
                 'en',
-                TEST_ROUTES as LocalizedRouteMap,
+                TEST_ROUTES,
                 'de',
                 {
                     ...prefixedEnLocation,

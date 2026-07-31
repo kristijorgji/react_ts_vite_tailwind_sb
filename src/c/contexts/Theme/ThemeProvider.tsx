@@ -21,9 +21,13 @@ const getInitialTheme = (): ThemeValue => {
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [theme, setTheme] = useState<ThemeValue>(getInitialTheme);
 
-    const [hasThemeBeenSetExplicitly, setHasThemeBeenSetExplicitly] = useState<boolean>(
-        localStorage.getItem(LOCAL_STORAGE_THEME_KEY) !== null
-    );
+    const [hasThemeBeenSetExplicitly, setHasThemeBeenSetExplicitly] = useState<boolean>(() => {
+        try {
+            return localStorage.getItem(LOCAL_STORAGE_THEME_KEY) !== null;
+        } catch {
+            return false;
+        }
+    });
 
     useEffect(() => {
         document.documentElement.classList.toggle('dark', theme === 'dark');

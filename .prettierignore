@@ -1,0 +1,11 @@
+node_modules/
+dist/
+coverage/
+storybook-static/
+reports/
+pnpm-lock.yaml
+package.json
+*.tsbuildinfo
+
+# Generated i18n typings
+src/i18n/resources.d.ts

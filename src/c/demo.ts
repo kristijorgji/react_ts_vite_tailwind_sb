@@ -1,5 +1,4 @@
-import type { ApiLoginResponse } from '@/c/types/api';
-import type { MeUser } from '@/c/types/api';
+import type { ApiLoginResponse, MeUser } from '@/c/types/api';
 
 const DEMO_MODE_KEY = 'demo_mode';
 

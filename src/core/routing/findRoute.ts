@@ -43,7 +43,7 @@ export default function findRoute(
         This allows us to avoid redefining routes that are identical across locales
         (e.g "/" or other shared routes)
      */
-    const routesForLocale = {
+    const routesForLocale: Record<string, { href: string }> = {
         ...routes[defaultLocale],
         ...routes[locale],
     };

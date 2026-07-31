@@ -5,5 +5,3 @@ export const Environments = {
     Production: 'production',
     Testing: 'testing',
 } as const;
-
-export type Environment = (typeof Environments)[keyof typeof Environments];

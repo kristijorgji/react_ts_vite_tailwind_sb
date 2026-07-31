@@ -136,39 +136,41 @@ describe('removeGivenQueryParams', () => {
 });
 
 describe('searchParamsToRecord', () => {
+    type SearchParamsRecord = Record<string, string | number>;
+
     it('converts numeric strings to numbers', () => {
         const params = new URLSearchParams('page=2&limit=10');
         const result = searchParamsToRecord(params);
-        expect(result).toEqual({ page: 2, limit: 10 });
+        expect(result).toEqual({ page: 2, limit: 10 } satisfies SearchParamsRecord);
     });
 
     it('keeps non-numeric strings as strings', () => {
         const params = new URLSearchParams('sort=asc&filter=active');
         const result = searchParamsToRecord(params);
-        expect(result).toEqual({ sort: 'asc', filter: 'active' });
+        expect(result).toEqual({ sort: 'asc', filter: 'active' } satisfies SearchParamsRecord);
     });
 
     it('preserves empty values as empty strings', () => {
         const params = new URLSearchParams('empty=');
         const result = searchParamsToRecord(params);
-        expect(result).toEqual({ empty: '' });
+        expect(result).toEqual({ empty: '' } satisfies SearchParamsRecord);
     });
 
     it('handles mixed numeric and non-numeric values', () => {
         const params = new URLSearchParams('page=2&sort=asc');
         const result = searchParamsToRecord(params);
-        expect(result).toEqual({ page: 2, sort: 'asc' });
+        expect(result).toEqual({ page: 2, sort: 'asc' } satisfies SearchParamsRecord);
     });
 
     it('handles negative numbers and decimals', () => {
         const params = new URLSearchParams('offset=-3.5&count=10');
         const result = searchParamsToRecord(params);
-        expect(result).toEqual({ offset: -3.5, count: 10 });
+        expect(result).toEqual({ offset: -3.5, count: 10 } satisfies SearchParamsRecord);
     });
 
     it('does not coerce strings like "001" or "12abc" to numbers', () => {
         const params = new URLSearchParams('code=001&value=12abc');
         const result = searchParamsToRecord(params);
-        expect(result).toEqual({ code: '001', value: '12abc' });
+        expect(result).toEqual({ code: '001', value: '12abc' } satisfies SearchParamsRecord);
     });
 });

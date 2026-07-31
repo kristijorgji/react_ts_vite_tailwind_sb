@@ -5,15 +5,10 @@ import { ThemeProvider } from '@/c/contexts/Theme/ThemeProvider';
 
 import { Header } from './Header';
 
-vi.mock('react-i18next', () => ({
-    useTranslation: () => ({
-        t: (key: string) => key,
-        i18n: {
-            language: 'en',
-            changeLanguage: vi.fn(),
-        },
-    }),
-}));
+vi.mock('react-i18next', async () => {
+    const { createReactI18nextMockModule } = await import('@test/mocks/react-i18next');
+    return createReactI18nextMockModule({ language: 'en', changeLanguage: vi.fn() });
+});
 
 describe('Header', () => {
     it('renders header correctly (snapshot)', () => {
@@ -32,9 +27,9 @@ describe('Header', () => {
             </ThemeProvider>
         );
 
-        expect(screen.getByLabelText('common:selectLanguage')).toBeInTheDocument();
+        expect(screen.getByTestId('locale-selector')).toBeInTheDocument();
 
-        const themeButton = screen.getByRole('button', { name: /dark|light/i });
+        const themeButton = screen.getByTestId('theme-toggle');
         expect(themeButton).toBeInTheDocument();
 
         fireEvent.click(themeButton);

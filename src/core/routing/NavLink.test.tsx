@@ -1,40 +1,32 @@
-import React from 'react';
-
 import { render, screen } from '@testing-library/react';
 import { useTranslation } from 'react-i18next';
 import { NavLink as ReactRouterNavLink } from 'react-router-dom';
 import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { localizeRoutePath } from '@/core/routing/localizedRoute.ts';
+import type { RouteParams } from '@/core/routing/localizedRoute.ts';
 import NavLink from '@/core/routing/NavLink';
 import { DEFAULT_LOCALE, LOCALES } from '@/i18n/locales.ts';
 
-import type { TestRouteId } from '../../../__tests__/data/routes.ts';
+import type { TestRouteId } from '@test/data/routes';
 
 vi.mock('react-i18next', () => ({
     useTranslation: vi.fn(),
 }));
 
-vi.mock('react-router-dom', async (importOriginal) => {
-    return {
-        ...(await importOriginal<typeof import('react-router-dom')>()),
-        NavLink: vi.fn((props) => {
-            return React.createElement(
-                'a',
-                {
-                    'data-testid': 'mock-navlink',
-                    href: props.to,
-                    ...props,
-                },
-                props.children
-            );
-        }),
-    };
+vi.mock('react-router-dom', async () => {
+    const { createMockNavLinkComponent, createReactRouterDomPartialMock } =
+        await import('@test/mocks/react-router-dom');
+    return createReactRouterDomPartialMock({
+        NavLink: createMockNavLinkComponent(),
+    });
 });
 
 vi.mock('@/core/routing/localizedRoute.ts', () => ({
     localizeRoutePath: vi.fn(),
 }));
+
+type TranslationMockValue = { i18n: { language: string } };
 
 const MockReactRouterNavLink = ReactRouterNavLink as unknown as Mock;
 const mockUseTranslation = useTranslation as unknown as Mock;
@@ -44,7 +36,7 @@ describe('NavLink', () => {
     beforeEach(() => {
         vi.clearAllMocks();
 
-        mockUseTranslation.mockReturnValue({ i18n: { language: DEFAULT_LOCALE } });
+        mockUseTranslation.mockReturnValue({ i18n: { language: DEFAULT_LOCALE } } satisfies TranslationMockValue);
 
         // Provide a sensible default mock implementation for localizeRoutePath
         mockLocalizeRoutePath.mockImplementation((locale, routeId, params) => {
@@ -84,11 +76,11 @@ describe('NavLink', () => {
     // Test Case 2: Renders with routeId prop
     it('should render ReactRouterNavLink with localized path when routeId prop is used', () => {
         const testRouteId: TestRouteId = 'LOGIN';
-        const testParams = { urlParams: { id: '123' }, query: { ref: 'abc' } };
+        const testParams: RouteParams = { urlParams: { id: '123' }, query: { ref: 'abc' } };
         const expectedLocalizedPath = '/en/LOGIN/123?ref=abc'; // Based on mockLocalizeRoutePath
 
         render(
-            <NavLink routeId={testRouteId} params={testParams}>
+            <NavLink params={testParams} routeId={testRouteId}>
                 Login Page
             </NavLink>
         );
@@ -114,7 +106,7 @@ describe('NavLink', () => {
     it('should pass down other NavLinkProps correctly', () => {
         const testHref = '/dashboard';
         render(
-            <NavLink href={testHref} className="custom-link" end style={{ color: 'blue' }}>
+            <NavLink className="custom-link" end href={testHref} style={{ color: 'blue' }}>
                 Dashboard
             </NavLink>
         );
@@ -146,7 +138,7 @@ describe('NavLink', () => {
         expect(screen.getByTestId('mock-navlink')).toHaveAttribute('href', initialPath);
 
         // Simulate language change to 'de' and re-render the component
-        mockUseTranslation.mockReturnValue({ i18n: { language: LOCALES.GERMAN } });
+        mockUseTranslation.mockReturnValue({ i18n: { language: LOCALES.GERMAN } } satisfies TranslationMockValue);
         mockLocalizeRoutePath.mockReturnValueOnce(germanPath); // Set return for the next call
         rerender(<NavLink routeId={testRouteId}>About Us</NavLink>);
 
@@ -161,7 +153,7 @@ describe('NavLink', () => {
         const testRouteId: TestRouteId = 'SETTINGS';
         const testHref = '/should-be-ignored';
         render(
-            <NavLink routeId={testRouteId} href={testHref}>
+            <NavLink href={testHref} routeId={testRouteId}>
                 Settings
             </NavLink>
         );

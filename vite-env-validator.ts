@@ -1,6 +1,6 @@
 import type { Plugin, ResolvedConfig } from 'vite';
 
-import { envSchema } from './src/env.schema';
+import { envSchema } from './src/env.schema.ts';
 
 /**
  * Vite plugin that validates environment variables at build time.

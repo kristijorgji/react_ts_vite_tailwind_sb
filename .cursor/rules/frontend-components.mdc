@@ -1,0 +1,11 @@
+---
+description: React component, i18n, Storybook, and test conventions
+globs: "src/c/components/**/*,**/*.{stories,test}.{ts,tsx},public/locales/**"
+alwaysApply: false
+---
+
+# Frontend components
+
+When working on components, stories, tests, or locales, read and follow:
+
+- [.agents/skills/frontend-component-guidelines/SKILL.md](../../.agents/skills/frontend-component-guidelines/SKILL.md)
