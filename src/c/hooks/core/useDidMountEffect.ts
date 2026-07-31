@@ -6,6 +6,6 @@ import { type EffectCallback, useEffect } from 'react';
 export default function useDidMountEffect(func: EffectCallback): void {
     useEffect(() => {
         return func();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps, react-x/exhaustive-deps -- mount-only by design
     }, []);
 }
