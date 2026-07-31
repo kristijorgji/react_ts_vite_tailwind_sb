@@ -1,22 +1,18 @@
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import { playwright } from '@vitest/browser-playwright';
 import { defineConfig, mergeConfig } from 'vitest/config';
 
-import viteConfig from './vite.config';
-
-const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
+import viteConfig from './vite.config.ts';
 
 export default defineConfig((env) =>
     mergeConfig(
         typeof viteConfig === 'function' ? viteConfig(env) : viteConfig,
         defineConfig({
-            resolve: {
-                alias: {
-                    '@test': path.join(dirname, 'test'),
-                },
+            // Pre-bundle deps Storybook browser tests need so Vite does not reload mid-run on CI.
+            optimizeDeps: {
+                include: ['@welldone-software/why-did-you-render', 'react-router-dom'],
             },
             test: {
                 globals: true,
@@ -61,7 +57,7 @@ export default defineConfig((env) =>
                     },
                     {
                         extends: true,
-                        plugins: [storybookTest({ configDir: path.join(dirname, '.storybook') })],
+                        plugins: [storybookTest({ configDir: path.join(import.meta.dirname, '.storybook') })],
                         test: {
                             name: 'storybook',
                             browser: {
@@ -70,7 +66,6 @@ export default defineConfig((env) =>
                                 provider: playwright(),
                                 instances: [{ browser: 'chromium' }],
                             },
-                            setupFiles: ['.storybook/vitest.setup.ts'],
                         },
                     },
                 ],

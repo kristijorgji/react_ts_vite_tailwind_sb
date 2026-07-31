@@ -2,9 +2,8 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { type PluginOption, defineConfig } from 'vite';
 import removeAttributesImport from 'vite-plugin-react-remove-attributes';
-import tsconfigPaths from 'vite-tsconfig-paths';
 
-import { envValidator } from './vite-env-validator';
+import { envValidator } from './vite-env-validator.ts';
 
 type RemoveAttributesFactory = (options: {
     attributes: string[];
@@ -23,9 +22,11 @@ function resolveRemoveAttributes(): RemoveAttributesFactory {
 const removeAttributes = resolveRemoveAttributes();
 
 export default defineConfig(({ mode }) => ({
+    resolve: {
+        tsconfigPaths: true,
+    },
     plugins: [
         envValidator(),
-        tsconfigPaths(),
         tailwindcss(),
         react(),
         mode === 'production' &&

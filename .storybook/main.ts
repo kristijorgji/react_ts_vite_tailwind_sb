@@ -1,17 +1,17 @@
 import type { StorybookConfig } from '@storybook/react-vite';
-import tsconfigPaths from 'vite-tsconfig-paths';
 
 const config: StorybookConfig = {
-    stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+    stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
     addons: ['@chromatic-com/storybook', '@storybook/addon-vitest'],
     framework: {
         name: '@storybook/react-vite',
         options: {},
     },
     viteFinal: (config) => {
-        config.plugins = config.plugins || [];
-        // sync same path aliases as the ones we use for vite
-        config.plugins.push(tsconfigPaths());
+        config.resolve = {
+            ...config.resolve,
+            tsconfigPaths: true,
+        };
 
         return config;
     },

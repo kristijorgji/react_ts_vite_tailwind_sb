@@ -1,7 +1,18 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { beforeEach, describe, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import LoginPage from './LoginPage';
+
+const { mockSetEmail, mockSetPassword, mockOnLoginSubmit, loginHandlerState } = vi.hoisted(() => ({
+    mockSetEmail: vi.fn(),
+    mockSetPassword: vi.fn(),
+    mockOnLoginSubmit: vi.fn((event: { preventDefault: () => void }) => {
+        event.preventDefault();
+    }),
+    loginHandlerState: {
+        error: undefined,
+    },
+}));
 
 vi.mock('react-i18next', async () => {
     const { createReactI18nextMockModule } = await import('@test/mocks/react-i18next');
@@ -15,24 +26,22 @@ vi.mock('@/c/hooks/auth/useDemoLogin', () => ({
     }),
 }));
 
-const mockSetEmail = vi.fn();
-const mockSetPassword = vi.fn();
-const mockOnLoginSubmit = vi.fn((e) => e.preventDefault());
+vi.mock('@/c/components/pages/LoginPage/useLoginHandler.ts', () => ({
+    default: () => ({
+        setEmail: mockSetEmail,
+        setPassword: mockSetPassword,
+        onLoginSubmit: mockOnLoginSubmit,
+        error: loginHandlerState.error,
+    }),
+}));
 
 describe('LoginPage', () => {
     beforeEach(() => {
         vi.clearAllMocks();
+        loginHandlerState.error = undefined;
     });
 
     it('renders form and handles input + submit', () => {
-        vi.mock('@/c/components/pages/LoginPage/useLoginHandler.ts', () => ({
-            default: () => ({
-                setEmail: mockSetEmail,
-                setPassword: mockSetPassword,
-                onLoginSubmit: mockOnLoginSubmit,
-                error: '',
-            }),
-        }));
         render(<LoginPage />);
 
         const emailInput = screen.getByTestId('login-email');
@@ -53,19 +62,10 @@ describe('LoginPage', () => {
         expect(mockOnLoginSubmit).toHaveBeenCalled();
     });
 
-    it('displays error when present', async () => {
-        vi.mock('@/c/components/pages/LoginPage/useLoginHandler.ts', () => ({
-            default: () => ({
-                setEmail: mockSetEmail,
-                setPassword: mockSetPassword,
-                onLoginSubmit: mockOnLoginSubmit,
-                error: 'Invalid credentials',
-            }),
-        }));
+    it('displays error when present', () => {
+        loginHandlerState.error = 'Invalid credentials';
 
-        const { default: LoginPageWithError } = await import('./LoginPage');
-
-        render(<LoginPageWithError />);
+        render(<LoginPage />);
         expect(screen.getByTestId('login-error')).toHaveTextContent('Invalid credentials');
     });
 
