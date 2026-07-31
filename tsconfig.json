@@ -2,13 +2,11 @@
     "files": [],
     "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
     "compilerOptions": {
-        "ignoreDeprecations": "6.0",
-        "baseUrl": ".",
         "paths": {
-            "@/core/*": ["src/core/*"],
-            "@/c/*": ["src/c/*"],
-            "@/*": ["src/*"],
-            "@test/*": ["test/*"]
+            "@/core/*": ["./src/core/*"],
+            "@/c/*": ["./src/c/*"],
+            "@/*": ["./src/*"],
+            "@test/*": ["./test/*"]
         }
     }
 }

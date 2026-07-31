@@ -2,11 +2,11 @@ import { useEffect, useRef } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { type PathMatch, matchPath, useLocation, useNavigate } from 'react-router-dom';
-import type { Locale } from 'src/i18n/locales';
 
 import { searchParamsToRecord } from '@/c/utils/http.ts';
 import type { Config } from '@/core/config';
 import { localizeRoutePath } from '@/core/routing/localizedRoute.ts';
+import type { Locale } from '@/i18n/locales.ts';
 
 import type { LocaleRouteMap, RouteId } from './routes';
 
