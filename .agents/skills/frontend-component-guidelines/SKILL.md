@@ -90,3 +90,18 @@ ComponentName/
 
 - Stories: follow [.agents/skills/storybook/SKILL.md](../storybook/SKILL.md).
 - Unit tests: follow [.agents/skills/testing/SKILL.md](../testing/SKILL.md).
+
+## Extraction coverage
+
+When splitting a component or hook (see the vendored
+`.agents/skills/vendor/component-extraction/SKILL.md` for rule thresholds), keep
+coverage aligned with the new artifacts:
+
+| Artifact                                   | Unit test                     | Storybook story                              |
+| ------------------------------------------ | ----------------------------- | -------------------------------------------- |
+| Hook with logic                            | **Required** (`use*.test.ts`) | Optional                                     |
+| Component with conditionals / side effects | **Required**                  | **Required**                                 |
+| Thin presentational extraction             | Parent test may suffice       | Parent story may suffice (must render child) |
+
+Optional extracted hooks live beside the component as `useComponentLogic.ts`
+(or a more specific `use*.ts` name).
