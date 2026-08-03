@@ -7,8 +7,11 @@ React + TypeScript + Vite + Tailwind + Storybook boilerplate.
 | Resource                             | Purpose                                                                                                                       |
 | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
 | [README.md](README.md)               | Setup, scripts, troubleshooting                                                                                               |
-| [`.agents/skills/`](.agents/skills/) | Task skills (conventions, components, TypeScript, testing, storybook, extraction, verification, commits, docs)                |
+| [`.agents/skills/`](.agents/skills/) | Task skills (conventions, components, TypeScript, testing, storybook, verification, commits, docs)                            |
 | [`package.json`](package.json)       | Scripts: `lint` (eslint+jscpd+knip), `lint:eslint`, `fix`, `test`, `dupcheck`, `dupcheck:tests`, `knip`, `analyze:test-mocks` |
+
+`.agents/skills/vendor/` is generated at `pnpm install` from `@kristijorgji/*/skills`
+(see `scripts/sync-agent-skills.mjs`). Do not edit those files by hand.
 
 Cursor rules under [`.cursor/rules/`](.cursor/rules/) are lean wrappers that
 **import** those skills. Agent hard-ignore SSoT is [`.aiignore`](.aiignore);

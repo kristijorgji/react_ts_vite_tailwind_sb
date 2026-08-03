@@ -6,7 +6,10 @@ alwaysApply: false
 
 # Component extraction
 
-When ESLint reports `no-multi-comp/no-multi-comp`, `max-lines-per-function`, or `max-lines`
+When ESLint reports `kj/no-multi-comp`, `max-lines-per-function`, or `max-lines`
 warnings, or when splitting components/hooks, read and follow:
 
-- [.agents/skills/component-extraction/SKILL.md](../../.agents/skills/component-extraction/SKILL.md)
+- [.agents/skills/vendor/component-extraction/SKILL.md](../../.agents/skills/vendor/component-extraction/SKILL.md)
+  for rule semantics and thresholds (synced from `@kristijorgji/eslint-plugin`)
+- [.agents/skills/frontend-component-guidelines/SKILL.md](../../.agents/skills/frontend-component-guidelines/SKILL.md)
+  for this repo's file layout and extraction coverage

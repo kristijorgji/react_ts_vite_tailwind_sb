@@ -33,3 +33,6 @@ storybook-static/
 .env
 
 reports/
+
+# Generated from @kristijorgji/*/skills at install time (see scripts/sync-agent-skills.mjs)
+.agents/skills/vendor/
