@@ -13,6 +13,8 @@ const reactConfig = await createReactConfig({
     tsconfigRootDir: import.meta.dirname,
     storybook: true,
     prettier: 'prettierrc',
+    codeQuality: true,
+    explicitTypes: true,
     importOrder: {
         pathGroups: [
             { pattern: 'react', group: 'external', position: 'before' },
