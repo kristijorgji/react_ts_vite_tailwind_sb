@@ -31,7 +31,6 @@ export function getLocalesSelectionItems(localesTexts?: Record<Locale, string>):
             text: string;
         }[]
     >((p, lk) => {
-        // @ts-ignore
         const locale = LOCALES[lk] as unknown as Locale;
 
         p.push({

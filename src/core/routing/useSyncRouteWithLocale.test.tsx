@@ -291,7 +291,7 @@ describe('useSyncRouteWithLocale', () => {
             it('uses default locale fallback route if we have no route specific for the non-default locale', async () => {
                 mockRoutes = {
                     en: {
-                        // @ts-ignore
+                        // @ts-expect-error intentional unknown route key for fallback coverage
                         MAGIC: {
                             href: '/magic',
                         },
