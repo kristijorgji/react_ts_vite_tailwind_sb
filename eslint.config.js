@@ -13,6 +13,8 @@ const reactConfig = await createReactConfig({
     tsconfigRootDir: import.meta.dirname,
     storybook: true,
     prettier: 'prettierrc',
+    codeQuality: true,
+    explicitTypes: true,
     importOrder: {
         pathGroups: [
             { pattern: 'react', group: 'external', position: 'before' },
@@ -47,6 +49,13 @@ export default [
         files: ['**/*.{ts,tsx}'],
         rules: {
             '@typescript-eslint/ban-ts-comment': 'off',
+        },
+    },
+
+    {
+        files: ['**/*.tsx'],
+        rules: {
+            '@typescript-eslint/explicit-function-return-type': 'off',
         },
     },
 
