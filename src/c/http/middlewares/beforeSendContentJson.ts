@@ -3,7 +3,7 @@ import cheaders from '@/c/http/cheaders';
 export function isFormData(body: unknown | undefined): boolean {
     // just a hacky way to check in backend if this is instance of FormData, which is not available when no window present
     // if (ri.body instanceof FormData) {
-    // @ts-ignore
+    // @ts-expect-error FormData duck-type check: body is unknown and has no `.append` in typings
     return body && body.append && typeof body.append === 'function';
 }
 

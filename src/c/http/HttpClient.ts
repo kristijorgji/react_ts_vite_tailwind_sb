@@ -62,7 +62,6 @@ export default class HttpClient implements IHttpClient {
         }
 
         for (let i = 0; i < urlParamsLength; i++) {
-            // @ts-ignore
             path = path.replace(found[i], urlParams[i]);
         }
 
