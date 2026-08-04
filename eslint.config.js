@@ -53,13 +53,6 @@ export default [
     },
 
     {
-        files: ['**/*.tsx'],
-        rules: {
-            '@typescript-eslint/explicit-function-return-type': 'off',
-        },
-    },
-
-    {
         files: ['src/**/*.{ts,tsx}'],
         rules: {
             'no-console': ['error', { allow: ['warn', 'error'] }],

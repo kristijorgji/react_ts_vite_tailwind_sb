@@ -44,7 +44,7 @@
     "@commitlint/cli": "^20.5.0",
     "@commitlint/config-conventional": "^20.5.0",
     "@kristijorgji/code-analysis": "^0.1.2",
-    "@kristijorgji/eslint-config-react-typescript": "^2.0.0",
+    "@kristijorgji/eslint-config-react-typescript": "^2.1.0",
     "@kristijorgji/eslint-plugin": "^0.2.0",
     "@storybook/addon-vitest": "^10.3.3",
     "@storybook/react": "^10.3.3",
@@ -98,11 +98,6 @@
     "*.{json,md,css}": [
       "prettier --write"
     ]
-  },
-  "pnpm": {
-    "overrides": {
-      "@kristijorgji/eslint-config-typescript": "^1.2.0"
-    }
   },
   "packageManager": "pnpm@9.15.4"
 }
