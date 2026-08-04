@@ -5,6 +5,7 @@ updates:
     schedule:
       interval: 'daily' # Updated to daily for better security
     open-pull-requests-limit: 10 # Increased slightly to allow for groups
+    rebase-strategy: auto
     # Grouping keeps your PR list clean and merges things together
     groups:
       dependencies:
@@ -17,3 +18,4 @@ updates:
     directory: '/'
     schedule:
       interval: 'daily'
+    rebase-strategy: auto
