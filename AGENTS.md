@@ -7,7 +7,8 @@ React + TypeScript + Vite + Tailwind + Storybook boilerplate.
 | Resource                             | Purpose                                                                                                                       |
 | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
 | [README.md](README.md)               | Setup, scripts, troubleshooting                                                                                               |
-| [`.agents/skills/`](.agents/skills/) | Task skills (conventions, components, TypeScript, testing, storybook, verification, commits, docs)                            |
+| [`.agents/skills/`](.agents/skills/) | Task skills (conventions, components, TypeScript, testing, storybook, verification, commits, docs, linting)                   |
+| [`Makefile`](Makefile)               | `make lint`, `make fix`, `make test`, markdown via Docker, `verify-hooks`                                                     |
 | [`package.json`](package.json)       | Scripts: `lint` (eslint+jscpd+knip), `lint:eslint`, `fix`, `test`, `dupcheck`, `dupcheck:tests`, `knip`, `analyze:test-mocks` |
 
 `.agents/skills/vendor/` is generated at `pnpm install` from `@kristijorgji/*/skills`
@@ -44,6 +45,9 @@ pnpm typecheck
 pnpm test
 pnpm build
 ```
+
+`pnpm typecheck` runs `tsc -b` (project references). Or via Make (includes Docker
+markdown lint): `make fix` / `make lint` / `make test`.
 
 See [.agents/skills/verification/SKILL.md](.agents/skills/verification/SKILL.md).
 

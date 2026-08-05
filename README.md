@@ -35,7 +35,8 @@ Built with a modern toolchain for speed, scalability, and developer experience:
 - 💅 [Tailwind CSS](https://tailwindcss.com/) — utility-first styling & CSS framework
 - 🧹 [ESLint](https://eslint.org/) — code linting
 - 🎨 [Prettier](https://prettier.io/) — code formatting
-- 🧪 [Vitest](https://vitest.dev/) + [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/) — unit testing
+- 🧪 [Vitest](https://vitest.dev/) +
+  [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/) — unit testing
 - 🧩 [Storybook](https://storybook.js.org/) — component development and testing environment
 - 🌐 [i18next](https://www.i18next.com/) — Internationalization framework used for managing translations
 
@@ -151,6 +152,7 @@ or `useCallback`.
     ```
 
 2. Import it **before any React rendering** in your `main.tsx`:
+
     ```ts
     import './wdyr'; // Must be imported before ReactDOM.createRoot
 
@@ -219,7 +221,8 @@ To ensure consistent code quality and commit standards, the project uses:
 - [Husky](https://typicode.github.io/husky) – to manage Git hooks.
 - [lint-staged](https://github.com/okonet/lint-staged) – to run linters on staged files before committing.
 - [commitlint](https://commitlint.js.org/) – to enforce conventional commit messages.
-- [jscpd](https://github.com/kucherenko/jscpd) – cross-file copy-paste detection (`pnpm dupcheck` for source; `pnpm dupcheck:tests` for tests/stories).
+- [jscpd](https://github.com/kucherenko/jscpd) – copy-paste detection
+  (`pnpm dupcheck` for source; `pnpm dupcheck:tests` for tests/stories).
 - [knip](https://github.com/webpro-nl/knip) – unused files, exports, and dependencies (`pnpm knip`).
 - [eslint-plugin-sonarjs](https://github.com/SonarSource/eslint-plugin-sonarjs) – in-file duplication rules.
 
@@ -243,6 +246,9 @@ You can run these manually as well:
 ```bash
 pnpm lint          # ESLint + jscpd (source) + knip
 pnpm lint:eslint   # ESLint only
+pnpm typecheck     # tsc -b (project references; prefer over tsc --noEmit)
+make lint          # pnpm lint + Docker markdownlint
+make fix           # pnpm fix + Docker markdown fix
 pnpm fix           # ESLint --fix
 pnpm dupcheck:tests        # jscpd on *.test.* / *.stories.* (on-demand)
 pnpm analyze:test-mocks    # near-duplicate vi.mock report (on-demand)
@@ -296,7 +302,7 @@ This enables full type safety and better developer experience when working with 
 
 To identify strings that need to be translated, follow these steps:
 
-1. uncomment the line ` // translationsEslintConfig`
+1. uncomment the line `// translationsEslintConfig`
 2. Adjust the file [eslint.translations.config.js](eslint.translations.config.js) ignores and rules as needed
 3. run `pnpm lint`
 

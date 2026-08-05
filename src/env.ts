@@ -7,7 +7,7 @@ if (!parsed.success) {
     throw new Error('Invalid environment variables');
 }
 
-// eslint-disable-next-line no-restricted-syntax -- derive AppEnv from the runtime object via typeof
+// eslint-disable-next-line no-restricted-syntax -- derive shape from the runtime object via typeof
 const env = {
     appEnv: parsed.data.VITE_APP_ENV,
     log: {
@@ -16,7 +16,5 @@ const env = {
     apiBasePath: parsed.data.VITE_API_BASE_PATH,
     isDev: parsed.data.VITE_APP_ENV === 'local' || parsed.data.VITE_APP_ENV === 'development',
 };
-
-export type AppEnv = typeof env;
 
 export default env;

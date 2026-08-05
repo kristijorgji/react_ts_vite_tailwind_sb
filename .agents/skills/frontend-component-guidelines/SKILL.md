@@ -73,7 +73,7 @@ auto-completable.
 
 Every component lives in its own folder following this pattern:
 
-```
+```text
 ComponentName/
 ├── ComponentName.tsx            # Component implementation
 ├── ComponentName.stories.tsx    # Storybook stories (required)
