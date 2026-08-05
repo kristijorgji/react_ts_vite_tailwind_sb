@@ -9,8 +9,5 @@
         "eslint.translations.config.js"
     ],
     "project": ["src/**/*.{ts,tsx}", "test/**/*.{ts,tsx}", ".storybook/**/*.{ts,tsx}"],
-    "ignoreDependencies": ["tailwindcss", "c8"],
-    "ignoreIssues": {
-        "src/env.ts": ["types"]
-    }
+    "ignoreDependencies": ["tailwindcss", "c8"]
 }
