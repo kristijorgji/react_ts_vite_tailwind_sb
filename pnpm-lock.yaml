@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@kristijorgji/react-localized-routing':
+        specifier: ^0.1.0
+        version: 0.1.0(i18next@26.3.6(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react-i18next@17.0.11(i18next@26.3.6(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3))(react-router-dom@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)
       i18next:
         specifier: ^26.0.3
         version: 26.3.6(typescript@6.0.3)
@@ -799,6 +802,16 @@ packages:
     peerDependencies:
       eslint: ^9 || ^10
       typescript: ^5 || ^6
+
+  '@kristijorgji/react-localized-routing@0.1.0':
+    resolution: {integrity: sha512-W2IT8dbK2U7fZjiPRiiO6fO8NelbP1T8SXA7B6WMK6qqeu/4tHBJsAucbyBkLG5BbswvIhyTiPbA9vRu0utzqA==}
+    engines: {node: '>=22.16.0'}
+    peerDependencies:
+      i18next: '>=23'
+      react: ^19
+      react-dom: ^19
+      react-i18next: '>=15'
+      react-router-dom: ^7
 
   '@napi-rs/wasm-runtime@1.2.1':
     resolution: {integrity: sha512-KjZdi8Q1wh89gsVmghvbrMgWl6ZWmRmHV6wjB7/g4Zf0dyO+hH3neZUtuDNPO00qq5YE5RITVWvrIZKRaAmzGQ==}
@@ -5226,6 +5239,14 @@ snapshots:
       typescript: 6.0.3
     transitivePeerDependencies:
       - supports-color
+
+  '@kristijorgji/react-localized-routing@0.1.0(i18next@26.3.6(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react-i18next@17.0.11(i18next@26.3.6(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3))(react-router-dom@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)':
+    dependencies:
+      i18next: 26.3.6(typescript@6.0.3)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+      react-i18next: 17.0.11(i18next@26.3.6(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)
+      react-router-dom: 7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
 
   '@napi-rs/wasm-runtime@1.2.1(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)':
     dependencies:

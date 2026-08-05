@@ -1,8 +1,7 @@
-export type Config = {
-    localization: {
-        useLocaleInPath: boolean;
-        usePrefixForDefaultLocale: boolean;
-    };
+import type { LocalizationConfig } from '@kristijorgji/react-localized-routing';
+
+type Config = {
+    localization: LocalizationConfig;
 };
 
 export default {

@@ -1,3 +1,5 @@
+import { type LocalizedRouteMap as PackageLocalizedRouteMap } from '@kristijorgji/react-localized-routing';
+
 import { type DEFAULT_LOCALE, LOCALES, type Locale } from '../../i18n/locales.ts';
 
 export const ROUTES_IDS = {
@@ -10,11 +12,7 @@ export const ROUTES_IDS = {
 
 export type RouteId = (typeof ROUTES_IDS)[keyof typeof ROUTES_IDS];
 
-export type LocaleRouteMap = Record<RouteId, { href: string }>;
-
-export type LocalizedRouteMap = {
-    [DEFAULT_LOCALE]: LocaleRouteMap;
-} & Partial<Record<Exclude<Locale, typeof DEFAULT_LOCALE>, Partial<LocaleRouteMap>>>;
+export type LocalizedRouteMap = PackageLocalizedRouteMap<Locale, RouteId, typeof DEFAULT_LOCALE>;
 
 export const ROUTES: LocalizedRouteMap = {
     [LOCALES.ENGLISH]: {

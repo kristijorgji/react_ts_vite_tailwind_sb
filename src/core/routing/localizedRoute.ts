@@ -1,62 +1,34 @@
-import { addOrUpdateUrlQueryParameters } from '@/c/utils/http.ts';
-import { ROUTES, type RouteId } from '@/core/routing/routes.ts';
+import {
+    type LocalizationConfig,
+    type RouteParams,
+    createLocalizedRouting,
+    localizeRoutePath as packageLocalizeRoutePath,
+} from '@kristijorgji/react-localized-routing';
+
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/locales.ts';
 
-import config, { type Config } from '../config.ts';
+import config from '../config.ts';
+import { ROUTES, type RouteId } from './routes.ts';
 
-export type RouteParams = {
-    urlParams?: Record<string, string | number>;
-    query?: Record<string, string | number>;
-    hash?: string;
-} | null;
+const { localizeRoutePath: boundLocalizeRoutePath } = createLocalizedRouting({
+    routes: ROUTES,
+    defaultLocale: DEFAULT_LOCALE,
+    config: config.localization,
+});
 
+/**
+ * App-bound localize helper. Prefer this over the package function so call sites
+ * do not pass ROUTES / DEFAULT_LOCALE / config every time.
+ */
 export function localizeRoutePath(
     locale: Locale,
     routeId: RouteId,
     params?: RouteParams,
-    { useLocaleInPath, usePrefixForDefaultLocale }: Config['localization'] = config.localization
+    localizationConfig: LocalizationConfig = config.localization
 ): string {
-    let localizedRawPath = ROUTES[DEFAULT_LOCALE][routeId].href;
-    if (ROUTES[locale] && ROUTES[locale][routeId]) {
-        localizedRawPath = ROUTES[locale][routeId].href;
+    if (localizationConfig === config.localization) {
+        return boundLocalizeRoutePath(locale, routeId, params);
     }
 
-    if (useLocaleInPath && (usePrefixForDefaultLocale || locale !== DEFAULT_LOCALE)) {
-        localizedRawPath = `/${locale}${localizedRawPath}`;
-    }
-
-    return formPath({
-        pathname: localizedRawPath,
-        ...(params ?? {}),
-    });
-}
-
-export type FormPathParams = {
-    pathname: string;
-    urlParams?: Record<string, string | number>;
-    query?: Record<string, string | number>;
-    hash?: string;
-};
-
-export function formPath(route: FormPathParams): string {
-    let r = route.pathname;
-
-    const urlTokens = [...r.matchAll(/:([^:/]+)/g)].flatMap((match) => (match[1] !== undefined ? [match[1]] : []));
-
-    if (route.urlParams) {
-        const urlParams = JSON.parse(JSON.stringify(route.urlParams)) as Record<string, string>;
-        for (const paramKey of urlTokens) {
-            r = r.replace(`:${paramKey}`, urlParams[paramKey]);
-            delete urlParams[paramKey];
-        }
-    }
-
-    r = route.query ? addOrUpdateUrlQueryParameters(r, route.query as Record<string, string>) : r;
-
-    if (route.hash) {
-        const normalizedHash = route.hash.startsWith('#') ? route.hash.slice(1) : route.hash;
-        r += `#${normalizedHash}`;
-    }
-
-    return r;
+    return packageLocalizeRoutePath(ROUTES, DEFAULT_LOCALE, locale, routeId, params, localizationConfig);
 }
