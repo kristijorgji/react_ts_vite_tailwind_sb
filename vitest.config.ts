@@ -20,6 +20,13 @@ export default defineConfig((env) =>
                     provider: 'v8',
                     reporter: ['text', 'lcov', 'html'],
                     include: ['src/**/*.{ts,tsx}'],
+                    exclude: [
+                        // Thin app glue; localized routing logic is covered in
+                        // @kristijorgji/react-localized-routing.
+                        'src/core/routing/AppRouter.tsx',
+                        'src/core/routing/routesConfig.tsx',
+                        'src/core/routing/routes.ts',
+                    ],
                     thresholds: {
                         autoUpdate: false,
                         statements: 70,

@@ -310,12 +310,15 @@ To identify strings that need to be translated, follow these steps:
 
 ## 🧭 Navigation
 
-This project uses localization combined with custom routing logic to handle multi-language paths seamlessly.
+This project uses localization combined with custom routing via
+[`@kristijorgji/react-localized-routing`](https://github.com/kristijorgji/react-libs).
+App-owned pieces live under `src/core/routing/`; shared helpers come from the package.
 
 ### Routing Guidelines
 
 - Define your routes inside [routes.ts](src/core/routing/routes.ts)
 - Define route-to-component mapping in [routesConfig.tsx](src/core/routing/routesConfig.tsx)
+- Wire the router in [AppRouter.tsx](src/core/routing/AppRouter.tsx)
 - Define routes for the non-default locales only for the paths you want to override.
 - Example:
 
@@ -341,13 +344,9 @@ Unspecified locale routes fall back to default locale (`en`) automatically.
 ### Routing Best Practices
 
 - Define route-to-component mapping in [routesConfig.tsx](src/core/routing/routesConfig.tsx)
-- Use custom routing utilities from `@/core/routing` — avoid `react-router-dom` directly
-- Use [createLocalizedRoute.tsx](src/core/routing/createLocalizedRoute.tsx) instead of `Route`
-- Use `localizeRoutePath` from [localizedRoute.ts](src/core/routing/localizedRoute.ts) to generate locale-aware paths
-- Use [NavLink.tsx](src/core/routing/NavLink.tsx) to generate locale-aware Links
-- Navigate via `navigate` from [useNavigate.ts](src/core/routing/useNavigate.ts)
-- Get the current matched route [useMatchedRoute.ts](src/core/routing/useMatchedRoute.ts)
-- Always reference routes via `ROUTE_IDS` for consistency and safety across locales
+- Prefer package utilities (`LocalizedNavLink`, `useLocalizedNavigate`, `useMatchedRoute`, factories) from `@kristijorgji/react-localized-routing` over raw `react-router-dom` for localized paths
+- Use app-bound `localizeRoutePath` from [localizedRoute.ts](src/core/routing/localizedRoute.ts) for redirects and links
+- Always reference routes via `ROUTES_IDS` for consistency and safety across locales
 
 ---
 

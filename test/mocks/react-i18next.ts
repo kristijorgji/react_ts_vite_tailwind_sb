@@ -1,5 +1,3 @@
-import { vi } from 'vitest';
-
 interface ReactI18nextMockOptions {
     language?: string;
     getLanguage?: () => string;
@@ -42,16 +40,5 @@ export function createReactI18nextMockModule(options: ReactI18nextMockOptions = 
 
             return { i18n };
         },
-    };
-}
-
-/** Partial mock that spreads `importActual` then overlays `useTranslation`. */
-export async function createReactI18nextPartialMock(
-    options: ReactI18nextMockOptions = {}
-): Promise<Record<string, unknown>> {
-    const actual = await vi.importActual<Record<string, unknown>>('react-i18next');
-    return {
-        ...actual,
-        ...createReactI18nextMockModule(options),
     };
 }
