@@ -10,10 +10,10 @@ importers:
     dependencies:
       '@kristijorgji/react-localized-routing':
         specifier: ^0.1.0
-        version: 0.1.0(i18next@26.4.0(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react-i18next@17.0.12(i18next@26.4.0(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3))(react-router-dom@7.18.3(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)
+        version: 0.1.0(i18next@26.4.1(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react-i18next@17.0.13(i18next@26.4.1(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3))(react-router-dom@7.18.3(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)
       i18next:
-        specifier: ^26.4.0
-        version: 26.4.0(typescript@6.0.3)
+        specifier: ^26.4.1
+        version: 26.4.1(typescript@6.0.3)
       i18next-browser-languagedetector:
         specifier: ^8.2.1
         version: 8.2.1
@@ -21,8 +21,8 @@ importers:
         specifier: ^4.0.1
         version: 4.0.1
       lucide-react:
-        specifier: ^1.38.0
-        version: 1.38.0(react@19.2.8)
+        specifier: ^1.39.0
+        version: 1.39.0(react@19.2.8)
       react:
         specifier: ^19.2.4
         version: 19.2.8
@@ -30,8 +30,8 @@ importers:
         specifier: ^19.2.4
         version: 19.2.8(react@19.2.8)
       react-i18next:
-        specifier: ^17.0.12
-        version: 17.0.12(i18next@26.4.0(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)
+        specifier: ^17.0.13
+        version: 17.0.13(i18next@26.4.1(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)
       react-router-dom:
         specifier: ^7.18.3
         version: 7.18.3(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -136,8 +136,8 @@ importers:
         specifier: ^10.5.10
         version: 10.5.10(eslint@10.9.1(jiti@2.7.0))(typescript@6.0.3)
       globals:
-        specifier: ^17.11.0
-        version: 17.11.0
+        specifier: ^17.12.0
+        version: 17.12.0
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -145,14 +145,14 @@ importers:
         specifier: ^2.0.2
         version: 2.1.0
       jscpd:
-        specifier: ^5.1.0
-        version: 5.1.0
+        specifier: ^5.1.1
+        version: 5.1.1
       jsdom:
         specifier: ^30.0.1
         version: 30.0.1
       knip:
-        specifier: ^6.33.0
-        version: 6.33.0
+        specifier: ^6.34.0
+        version: 6.34.0
       lint-staged:
         specifier: ^17.4.1
         version: 17.4.1
@@ -3088,8 +3088,8 @@ packages:
     resolution: {integrity: sha512-1pgFdhK3J2LeM+dVf2Pd424yHx2ou338lC0ErNP2hPx4j8eW1Sp0XqSjNxtk6Tc4Kr5wlWtSvz8cn2yb7/SG/w==}
     engines: {node: '>=20'}
 
-  globals@17.11.0:
-    resolution: {integrity: sha512-Z2I8hM+PbJDXQDq3Icgpzv+mPdwr68iZUU9d5WW4FuXfDUQfkZaZuvjMv42/5crNyw154+9+VWXbYrUgDXbxNw==}
+  globals@17.12.0:
+    resolution: {integrity: sha512-cezEd/DTyyht9cvSSURyygXPfy04GtWO/5e6ZPvH7fCtjKz9PYOmuawphw1Ctd1f6C+5JypXfGD7ahNMXvevBA==}
     engines: {node: '>=18'}
 
   globalthis@1.0.4:
@@ -3160,8 +3160,8 @@ packages:
     resolution: {integrity: sha512-n5UexwEVt0OoIAhG2MWpSnAVJW1U8mQrQTmXyxc5DMAx+NLhcLZhSMJo/FnUsA5JQ3obTYqTgB7YIuZKWpDgow==}
     hasBin: true
 
-  i18next@26.4.0:
-    resolution: {integrity: sha512-rsmK5bFqsD1AetSFSIa43wtNR4WpvvH4p0tLEsTxkC7QTrfdFm06nbQ95bh8Og4wwaCnUEcm9DVYL2cgxitiQg==}
+  i18next@26.4.1:
+    resolution: {integrity: sha512-9YbX5E6gd1H+yaOSX3izCsPj5iWXyH7X4oC+iuHHJJw8AeHglzOK5SJf+1CHxaYKYigcea+8jvzSxqYx46YvyA==}
     peerDependencies:
       typescript: ^5 || ^6 || ^7
     peerDependenciesMeta:
@@ -3383,38 +3383,43 @@ packages:
     resolution: {integrity: sha512-CY6crGq313MX8GkwvB7tzgp99vjQxY1++5y10/BKN/GUfHqWaOGQMNZkBvqSzsZKWk/ijwHlWzzkLulsGHhjWQ==}
     hasBin: true
 
-  jscpd-darwin-arm64@5.0.16:
-    resolution: {integrity: sha512-Tu6OAg3Rp6m7LCZqOtPViJxYGTKXTLrI/xMyjEKe79N9L7GpbI3XhgotGDpoE+PjLRbgJgGhRKbkKK18FPySmQ==}
+  jscpd-darwin-arm64@5.1.1:
+    resolution: {integrity: sha512-KFJEoAI1uoS8Ae5x5ItdBXOEF1TeMCCitVlYXpPTOyfltHKczQ86kIlba993en9V0ICzjCi1pZSPQ1oWAG+A7Q==}
     cpu: [arm64]
     os: [darwin]
 
-  jscpd-darwin-x64@5.0.16:
-    resolution: {integrity: sha512-3btQ1aG8K7+9rvJjyaRJRcSBD0DvHgZOUVlecjnyO99FYzMvdFREq67UIl5CAXFeYf5EY8TSorCMZQxL6TBD0w==}
+  jscpd-darwin-x64@5.1.1:
+    resolution: {integrity: sha512-D347vyGqPH3uBWj1hqT1gSfGhyKhv82m5K6yF6nnmMhVuhJYRulfzKgBmJ0iTAGTcNyIwdGn52hy5K0ySuc91w==}
     cpu: [x64]
     os: [darwin]
 
-  jscpd-linux-arm64-gnu@5.0.16:
-    resolution: {integrity: sha512-L1F9CNHxRPqGJCKgGRA4gtZcESACFkS2lgfPgWn9fG+4CkiewLcYyy/oxrafJJL1/PPTQ24sbLuzPaKUxJuvuw==}
+  jscpd-linux-arm64-gnu@5.1.1:
+    resolution: {integrity: sha512-v0rCNibeRyv4uxDfCuSQBu7SroLGXLy6vf9f2VcSlszThGo37r37CECh27iKDYW+jrz+vn4nBF+IajU9szk9qg==}
     cpu: [arm64]
     os: [linux]
 
-  jscpd-linux-x64-gnu@5.0.16:
-    resolution: {integrity: sha512-BruP+sAr0+6QsEQZvOkgcS+xR23y4s1hLA0xfkcO1zFFXdnmQdJ4w23/U8VlPwqO2dFRaAEseYEXjHs5oQQGFw==}
+  jscpd-linux-x64-gnu@5.1.1:
+    resolution: {integrity: sha512-gs5Bqr/n8H9H2mo+xeqzyfH/er8t0896tvhkWUwJy7+VbdfmfnjqE2nTcuWOgaXN4rs6MDx0YJwy2YtcUMAWOg==}
     cpu: [x64]
     os: [linux]
 
-  jscpd-linux-x64-musl@5.0.16:
-    resolution: {integrity: sha512-T36RtMnF695Y1/T3cLEhgvspHdKoiF+oxK/lklGJWriLieImZolSOjGXsecW2bp7MNMMGlqLLRzr2RNgnwy+Hg==}
+  jscpd-linux-x64-musl@5.1.1:
+    resolution: {integrity: sha512-kWppGlF12MJshVIja6k3LffJ75c/EGrL3kMx5dj+Tnvxxx1GE260mFhpc/E5NbdtaZIbXPfchy0ztGe2DY4+tQ==}
     cpu: [x64]
     os: [linux]
 
-  jscpd-windows-x64-msvc@5.0.16:
-    resolution: {integrity: sha512-BcrY18r6uje+TjgBKdFZJz6qfAAh9QT24KZYZk+jk6tuIKOYIm6oRMeQEu3Tzr/len9ZethN2h1bKmv+EfHcGw==}
+  jscpd-windows-arm64-msvc@5.1.1:
+    resolution: {integrity: sha512-mSeeGc3bJZF2T4ItzSxouVkGwiUyVSPgLN+Gu59ZIpgRACp0eazZ15mugW9nFtPvUOiL3BN3QBhpt+9t+sCtBQ==}
+    cpu: [arm64]
+    os: [win32]
+
+  jscpd-windows-x64-msvc@5.1.1:
+    resolution: {integrity: sha512-6pNOWuJ5xdyza1JfJNymcTRAvnJ6WpnKuqG1JKaZWJPJfo1s8ZeYvaNlP3jQQjjlO6tmfcZC/FpZ24qKtv3z+Q==}
     cpu: [x64]
     os: [win32]
 
-  jscpd@5.1.0:
-    resolution: {integrity: sha512-Tg/ZeXjJblZQJaqFeR9XlVc9/RQdt6bFg9/6wvCxy0iom7jKJA6ojIfr9q1qiZih5KEt7uvsQERxQNqkEaefZg==}
+  jscpd@5.1.1:
+    resolution: {integrity: sha512-1VG3wtT1aoHNS18ELNmzhQIbzDMdDAbfEI1c1d97Rc0qdukP4n/UCPyKfYoicDyB22AwGpRv5f96QbbExwh+3g==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -3476,8 +3481,8 @@ packages:
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
 
-  knip@6.33.0:
-    resolution: {integrity: sha512-gMXWV2bqgJcdZKsaRgl1oH5V2J0VumhJ2ujfP4M6b9ftpca2BNpvlX3Dq++vVtEey7sU67EXCvZGNkQfG2w1RQ==}
+  knip@6.34.0:
+    resolution: {integrity: sha512-bbHIrnGspYwe4EBPjjx+lvkUor0F2qfKQc5BPzPI4SOAImYA+k2ueVpIcF7d/W1LEVT7XoJUPt6zELeGZhXBgA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
@@ -3653,8 +3658,8 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  lucide-react@1.38.0:
-    resolution: {integrity: sha512-xZCyBd/wiVUDactoCc+42TjL0aB7EBOXsuX+tjz+W/sGzw2KhHpL1NOH3FIaVUcpimvUBpIYfz34Ofj9S5JEzQ==}
+  lucide-react@1.39.0:
+    resolution: {integrity: sha512-y8nXoEwvqqIsF927NBWXODa4bfMrcUeEb/9sgpwFqg0gUjgn3j5Hznk+v7STmPgZ2iQ11JKlbQGdFRuTOwvYkA==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -4012,8 +4017,8 @@ packages:
     peerDependencies:
       react: ^19.2.8
 
-  react-i18next@17.0.12:
-    resolution: {integrity: sha512-lFWPEGkxQ6RhusdUkysFBD58VHfSSzvHBzqMgN0SvfVpdQGfwtNkStTqdy08/sJd7s807qqutgx93fRpD0DJ3Q==}
+  react-i18next@17.0.13:
+    resolution: {integrity: sha512-Cc1PscmblIHA1kljTqDwrcVMI21ydgmUzw0UAeQBe7pAOgfuRLfzXze4EUBQoeDiICzFIXXhHFoZxuetNg5D0Q==}
     peerDependencies:
       i18next: '>= 26.2.0'
       react: '>= 16.8.0'
@@ -4468,8 +4473,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  unbash@4.0.10:
-    resolution: {integrity: sha512-b7zoBQvpWp0vuN5q2vK2RRBR2SvuruQAs50DApdDveBSn3eSYd84IaHodFqQIMlvY9K2VnyBUEXgwOBuGU9GBg==}
+  unbash@4.0.11:
+    resolution: {integrity: sha512-FoSOKV7NEofQSkAefMVHam4ZPKYMxjAydxiV72UFEDNV/YofxjGfiZ2A9pZjdL/lRJzTjcu4PABo1JYJX8N5iQ==}
     engines: {node: '>=14'}
 
   unbox-primitive@1.1.0:
@@ -5334,7 +5339,7 @@ snapshots:
       eslint-plugin-perfectionist: 5.10.1(eslint@10.9.1(jiti@2.7.0))(typescript@6.0.3)
       eslint-plugin-react-hooks: 5.2.0(eslint@10.9.1(jiti@2.7.0))
       eslint-plugin-react-refresh: 0.5.4(eslint@10.9.1(jiti@2.7.0))
-      globals: 17.11.0
+      globals: 17.12.0
       prettier: 3.9.6
       typescript: 6.0.3
     optionalDependencies:
@@ -5358,7 +5363,7 @@ snapshots:
       eslint-plugin-prettier: 5.5.6(eslint-config-prettier@10.1.8(eslint@10.9.1(jiti@2.7.0)))(eslint@10.9.1(jiti@2.7.0))(prettier@3.9.6)
       eslint-plugin-sonarjs: 4.2.0(eslint@10.9.1(jiti@2.7.0))
       eslint-plugin-unused-imports: 4.4.1(@typescript-eslint/eslint-plugin@8.66.0(@typescript-eslint/parser@8.66.0(eslint@10.9.1(jiti@2.7.0))(typescript@6.0.3))(eslint@10.9.1(jiti@2.7.0))(typescript@6.0.3))(eslint@10.9.1(jiti@2.7.0))
-      globals: 17.11.0
+      globals: 17.12.0
       prettier: 3.9.6
       typescript: 6.0.3
       typescript-eslint: 8.66.0(eslint@10.9.1(jiti@2.7.0))(typescript@6.0.3)
@@ -5377,12 +5382,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@kristijorgji/react-localized-routing@0.1.0(i18next@26.4.0(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react-i18next@17.0.12(i18next@26.4.0(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3))(react-router-dom@7.18.3(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)':
+  '@kristijorgji/react-localized-routing@0.1.0(i18next@26.4.1(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react-i18next@17.0.13(i18next@26.4.1(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3))(react-router-dom@7.18.3(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)':
     dependencies:
-      i18next: 26.4.0(typescript@6.0.3)
+      i18next: 26.4.1(typescript@6.0.3)
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
-      react-i18next: 17.0.12(i18next@26.4.0(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)
+      react-i18next: 17.0.13(i18next@26.4.1(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)
       react-router-dom: 7.18.3(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
 
   '@napi-rs/wasm-runtime@1.2.1(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)':
@@ -7346,7 +7351,7 @@ snapshots:
       bytes: 3.1.2
       eslint: 10.9.1(jiti@2.7.0)
       functional-red-black-tree: 1.0.1
-      globals: 17.11.0
+      globals: 17.12.0
       jsx-ast-utils-x: 0.1.0
       lodash.merge: 4.6.2
       minimatch: 10.2.6
@@ -7596,7 +7601,7 @@ snapshots:
     dependencies:
       ini: 6.0.0
 
-  globals@17.11.0: {}
+  globals@17.12.0: {}
 
   globalthis@1.0.4:
     dependencies:
@@ -7662,7 +7667,7 @@ snapshots:
     transitivePeerDependencies:
       - '@swc/helpers'
 
-  i18next@26.4.0(typescript@6.0.3):
+  i18next@26.4.1(typescript@6.0.3):
     optionalDependencies:
       typescript: 6.0.3
 
@@ -7883,32 +7888,36 @@ snapshots:
     dependencies:
       argparse: 2.0.1
 
-  jscpd-darwin-arm64@5.0.16:
+  jscpd-darwin-arm64@5.1.1:
     optional: true
 
-  jscpd-darwin-x64@5.0.16:
+  jscpd-darwin-x64@5.1.1:
     optional: true
 
-  jscpd-linux-arm64-gnu@5.0.16:
+  jscpd-linux-arm64-gnu@5.1.1:
     optional: true
 
-  jscpd-linux-x64-gnu@5.0.16:
+  jscpd-linux-x64-gnu@5.1.1:
     optional: true
 
-  jscpd-linux-x64-musl@5.0.16:
+  jscpd-linux-x64-musl@5.1.1:
     optional: true
 
-  jscpd-windows-x64-msvc@5.0.16:
+  jscpd-windows-arm64-msvc@5.1.1:
     optional: true
 
-  jscpd@5.1.0:
+  jscpd-windows-x64-msvc@5.1.1:
+    optional: true
+
+  jscpd@5.1.1:
     optionalDependencies:
-      jscpd-darwin-arm64: 5.0.16
-      jscpd-darwin-x64: 5.0.16
-      jscpd-linux-arm64-gnu: 5.0.16
-      jscpd-linux-x64-gnu: 5.0.16
-      jscpd-linux-x64-musl: 5.0.16
-      jscpd-windows-x64-msvc: 5.0.16
+      jscpd-darwin-arm64: 5.1.1
+      jscpd-darwin-x64: 5.1.1
+      jscpd-linux-arm64-gnu: 5.1.1
+      jscpd-linux-x64-gnu: 5.1.1
+      jscpd-linux-x64-musl: 5.1.1
+      jscpd-windows-arm64-msvc: 5.1.1
+      jscpd-windows-x64-msvc: 5.1.1
 
   jsdom@30.0.1:
     dependencies:
@@ -7979,7 +7988,7 @@ snapshots:
     dependencies:
       json-buffer: 3.0.1
 
-  knip@6.33.0:
+  knip@6.34.0:
     dependencies:
       fdir: 6.5.0(picomatch@4.0.7)
       formatly: 0.7.0
@@ -7991,7 +8000,7 @@ snapshots:
       smol-toml: 1.8.0
       strip-json-comments: 5.0.3
       tinyglobby: 0.2.17
-      unbash: 4.0.10
+      unbash: 4.0.11
       yaml: 2.9.0
       zod: 4.5.4
 
@@ -8124,7 +8133,7 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-react@1.38.0(react@19.2.8):
+  lucide-react@1.39.0(react@19.2.8):
     dependencies:
       react: 19.2.8
 
@@ -8503,11 +8512,11 @@ snapshots:
       react: 19.2.8
       scheduler: 0.27.0
 
-  react-i18next@17.0.12(i18next@26.4.0(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3):
+  react-i18next@17.0.13(i18next@26.4.1(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3):
     dependencies:
       '@babel/runtime': 7.29.7
       html-parse-stringify: 4.0.1
-      i18next: 26.4.0(typescript@6.0.3)
+      i18next: 26.4.1(typescript@6.0.3)
       react: 19.2.8
       use-sync-external-store: 1.6.0(react@19.2.8)
     optionalDependencies:
@@ -9077,7 +9086,7 @@ snapshots:
 
   typescript@6.0.3: {}
 
-  unbash@4.0.10: {}
+  unbash@4.0.11: {}
 
   unbox-primitive@1.1.0:
     dependencies:
